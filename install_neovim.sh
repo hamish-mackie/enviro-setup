@@ -15,7 +15,11 @@ if [ -d "$HOME/.config/nvim" ]; then
 else
   echo "installing nv chad, neovim set up"
   git clone https://github.com/NvChad/starter "$HOME/.config/nvim"
-  echo "run nvim and :MasonInstallAll to install plugins"
 fi
 
 ./helper_add_to_path.sh
+
+cp -r neovim_config/* ~/.config/nvim/lua/
+
+nvim -c "sleep 250m | MasonInstallAll"
+# nvim -c "sleep 250m | TSInstall cpp"

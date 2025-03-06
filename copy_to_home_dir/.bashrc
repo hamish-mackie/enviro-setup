@@ -120,3 +120,6 @@ fi
 if [ -d "$HOME/bin" ] ; then
   PATH="$PATH:$HOME/bin"
 fi
+
+echo "tmux sessions:"
+tmux ls
