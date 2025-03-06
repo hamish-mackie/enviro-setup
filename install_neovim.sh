@@ -21,5 +21,7 @@ fi
 
 cp -r neovim_config/* ~/.config/nvim/lua/
 
+source ~/.bashrc
+
 nvim -c "sleep 250m | MasonInstallAll"
 # nvim -c "sleep 250m | TSInstall cpp"
