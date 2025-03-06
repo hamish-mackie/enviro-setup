@@ -1,34 +1,27 @@
 #!/usr/bin/env bash
+set -e
 
-set -euo pipefail
+# 1. Create a temporary working directory and change into it
+TMPDIR=$(mktemp -d)
+cd "$TMPDIR"
 
-# Directory where we'll install the 'unzip' binary
-INSTALL_DIR="$HOME/bin"
+# 2. Download the 'unzip' package (no sudo needed, just downloads the deb file)
+apt download unzip
 
-mkdir -p "$INSTALL_DIR"
+# 3. Extract the .deb into a subfolder
+dpkg -x unzip_*.deb extracted
 
-# Check if ~/.bin is in PATH
-if [[ ":$PATH:" != *":$INSTALL_DIR:"* ]]; then
-  echo "WARNING: $INSTALL_DIR is not in your PATH."
-  echo "You should add the following line to your shell config (e.g. ~/.bashrc or ~/.zshrc):"
-  echo "    export PATH=\"$INSTALL_DIR:\$PATH\""
-  echo
-fi
+# 4. Create ~/bin if it doesn't exist
+mkdir -p ~/bin
 
-cd /tmp
-echo "Downloading unzip source..."
-curl -LO https://downloads.sourceforge.net/infozip/unzip60.tar.gz
+# 5. Copy the extracted unzip binary to ~/bin, renaming it
+cp extracted/usr/bin/unzip ~/bin/unzip
 
-echo "Extracting..."
-tar xvf unzip60.tar.gz
-cd unzip60
+# 6. Make sure it’s executable
+chmod +x ~/bin/unzip
 
-echo "Compiling..."
-make -f unix/Makefile generic
+# Optional cleanup of the temporary directory
+rm -rf "$TMPDIR"
 
-echo "Installing into $INSTALL_DIR..."
-cp unzip "$INSTALL_DIR"/unzip
-
-echo
-echo "Done! 'unzip' is now installed at: $INSTALL_DIR/unzip"
-echo "If you haven’t already, make sure $INSTALL_DIR is in your PATH."
+echo "All done! You can now run it using: ~/bin/unzip"
+echo "If you want to just type 'unzip', ensure ~/bin is in your PATH."
