@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-	theme = "Catppuccin",
+	theme = "catppuccin",
 
 	-- hl_override = {
 	-- 	Comment = { italic = true },
@@ -20,16 +20,6 @@ M.base46 = {
 --          lazyload = false
 --      }
 --}
-
-M.plugins = {
-  override = {
-    ["nvim-tree/nvim-tree.lua"] = function()
-      require("nvim-tree").setup({
-        -- your settings here
-      })
-    end,
-  },
-}
 
 -- The autocmd to open the tree at startup:
 vim.api.nvim_create_autocmd("VimEnter", {
