@@ -1,3 +1,72 @@
+# -------------------------------------------------
+# Listing & Navigation
+# -------------------------------------------------
+alias ll='ls -alF --color=auto'
+alias la='ls -A --color=auto'
+alias l='ls -CF --color=auto'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# -------------------------------------------------
+# Grep & Searching
+# -------------------------------------------------
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# Recursively find a string (ignoring case)
+alias findstr='grep -iR'
+
+# -------------------------------------------------
+# Git Shortcuts
+# -------------------------------------------------
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias gl='git pull'
+alias gd='git diff'
+alias gb='git branch'
+alias gco='git checkout'
+alias gcm='git checkout main'
+alias gm='git merge'
+
+# -------------------------------------------------
+# Networking & System Info
+# -------------------------------------------------
+alias ports='netstat -tulanp'
+alias myip='curl ifconfig.me'
+
+# Human-readable disk usage/space
+alias df='df -h'
+alias du='du -h'
+
+# Memory info in megabytes
+alias meminfo='free -m -l -t'
+
+# -------------------------------------------------
+# Safe Operations
+# -------------------------------------------------
+# alias rm='rm -i'
+# alias mv='mv -i'
+# alias cp='cp -i'
+# alias mkdir='mkdir -p'
+
+# -------------------------------------------------
+# Other Handy Shortcuts
+# -------------------------------------------------
+alias c='clear'
+alias reload='source ~/.bashrc'
+
+# Update system (Debian/Ubuntu)
+alias update='sudo apt-get update && sudo apt-get upgrade'
+
+# Show directory sizes (summing up all directories)
+alias dus='du -sh *'
+
+
 alias gg='git grep'
 
 # Tmux aliases
