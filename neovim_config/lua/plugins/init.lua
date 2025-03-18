@@ -1,3 +1,4 @@
+-- luacheck: globals vim
 return {
   {
     "stevearc/conform.nvim",
@@ -12,7 +13,7 @@ return {
   config = function()
     require("nvim-tree").setup({
       view = {
-        width = 40,           -- default width of 40 columns
+        width = 45,           -- default width of 40 columns
         adaptive_size = true, -- automatically adjust width (if supported)
       },
     })
