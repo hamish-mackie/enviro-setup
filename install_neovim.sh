@@ -24,4 +24,4 @@ cp -r neovim_config/* ~/.config/nvim/
 source ~/.bashrc
 
 nvim -c "sleep 250m | MasonInstallAll"
-# nvim -c "sleep 250m | TSInstall cpp"
+nvim -c "sleep 250m | MasonInstallAll" -- installs language servers
