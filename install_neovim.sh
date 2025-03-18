@@ -25,3 +25,5 @@ source ~/.bashrc
 
 nvim -c "sleep 250m | MasonInstallAll"
 nvim -c "sleep 250m | MasonInstallAll" -- installs language servers
+
+echo "install hack nerd font: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Hack.zip"
