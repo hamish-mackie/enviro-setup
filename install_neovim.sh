@@ -19,7 +19,7 @@ fi
 
 ./helper_add_to_path.sh
 
-cp -r neovim_config/* ~/.config/nvim/
+cp -rf neovim_config/* ~/.config/nvim/
 
 source ~/.bashrc
 
