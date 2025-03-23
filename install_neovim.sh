@@ -7,19 +7,11 @@ curl -L --progress-bar https://github.com/neovim/neovim/releases/download/nightl
 
 ln -sf $PWD/data_neovim/bin/nvim ~/bin/nvim 
 
-echo "installing nv chad"
-if [ -d "$HOME/.config/nvim" ]; then
-  echo "could not install nvchad: warning: directory '$HOME/.config/nvim' already exists."
-  # If you want to stop immediately, uncomment the next line:
-  # exit 1
-else
-  echo "installing nv chad, neovim set up"
-  git clone https://github.com/NvChad/starter "$HOME/.config/nvim"
-fi
-
 ./helper_add_to_path.sh
 
-cp -rf neovim_config/* ~/.config/nvim/
+mkdir -p ~/.config/nvim
+
+cp -r $PWD/nvim_config/* ~/.config/nvim/
 
 source ~/.bashrc
 
