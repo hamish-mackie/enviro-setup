@@ -83,3 +83,19 @@ end, { desc = "[T]oggle Inlay [H]ints" })
 -- NvimTree
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "toggle NvimTree" })
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "focus NvimTree" })
+
+-- Copy to system clipboard
+map("v", "<leader>y", '"+y') -- Visual mode copy
+map("n", "<leader>y", '"+y') -- Normal mode copy (single motion)
+map("n", "<leader>Y", '"+yg_') -- Normal mode copy to end of line
+map("n", "<leader>yy", '"+yy') -- Normal mode copy whole line
+
+-- Paste from system clipboard
+map("n", "<leader>p", '"+p') -- Paste after cursor in normal mode
+map("n", "<leader>P", '"+P') -- Paste before cursor in normal mode
+map("v", "<leader>p", '"+p') -- Paste over selection in visual mode
+map("v", "<leader>P", '"+P') -- Paste before selection in visual mode
+
+map("n", "<leader>c", function()
+	require("osc52").copy_register('"')
+end, { desc = "Copy using OSC52" })

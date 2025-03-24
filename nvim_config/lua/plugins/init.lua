@@ -12,6 +12,7 @@ local plugins = {
 	require("plugins.gitsigns"),
 	require("plugins.luasnip"),
 	require("plugins.catppuccin"),
+	require("plugins.osc52"),
 }
 
 return plugins
