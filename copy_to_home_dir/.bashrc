@@ -120,5 +120,10 @@ if [ -d "$HOME/bin" ] ; then
   PATH="$PATH:$HOME/bin"
 fi
 
+# put custom bash stuff in here, it won't be overwritten on new install
+if [ -f ~/.bash_custom ]; then
+    . ~/.bash_custom
+fi
+
 echo "tmux sessions:"
 tmux ls
