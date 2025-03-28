@@ -20,7 +20,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		vim.defer_fn(function()
 			require("nvim-tree.api").tree.open()
-			vim.cmd("wincmd p")
 		end, 10) -- Adjust the delay if necessary
 	end,
 })
