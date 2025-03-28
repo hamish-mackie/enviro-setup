@@ -11,8 +11,10 @@ local plugins = {
 	require("plugins.cmp"),
 	require("plugins.gitsigns"),
 	require("plugins.luasnip"),
-	require("plugins.catppuccin"),
 	require("plugins.osc52"),
+	require("plugins.barbar"),
+	require("plugins.catppuccin"),
+	require("plugins.monokai-pro"),
 }
 
 return plugins

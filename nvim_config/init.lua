@@ -11,3 +11,7 @@ require("core.autocmds")
 
 -- Load plugins
 require("plugins")
+
+-- Theme
+-- vim.cmd.colorscheme("catppuccin")
+vim.cmd("colorscheme monokai-pro")

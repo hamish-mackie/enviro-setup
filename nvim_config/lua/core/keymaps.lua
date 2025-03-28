@@ -1,5 +1,6 @@
 local builtin = require("telescope.builtin")
 local map = vim.keymap.set
+local opts = { noremap = true, silent = true }
 
 -- Telescope Keymaps (From first config)
 map("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
@@ -97,5 +98,10 @@ map("v", "<leader>p", '"+p') -- Paste over selection in visual mode
 map("v", "<leader>P", '"+P') -- Paste before selection in visual mode
 
 map("n", "<leader>c", function()
-	require("osc52").copy_register('"')
-end, { desc = "Copy using OSC52" })
+	require("osc53").copy_register('"')
+end, { desc = "Copy using OSC53" })
+
+-- barbar tabs
+map("n", "<Tab>", ":BufferNext<CR>", opts)
+map("n", "<S-Tab>", ":BufferPrevious<CR>", opts)
+map("n", "<leader>tc", ":BufferClose<CR>", { desc = "[T]ab [C]lose" }, opts)
