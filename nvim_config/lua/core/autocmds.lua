@@ -23,3 +23,19 @@ vim.api.nvim_create_autocmd("VimEnter", {
 		end, 10) -- Adjust the delay if necessary
 	end,
 })
+
+-- Automatically reload file when opened
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*",
+	command = "checktime",
+})
+
+-- Automatically save buffer when leaving or losing focus
+vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
+	pattern = "*",
+	callback = function()
+		if vim.bo.modified and not vim.bo.readonly then
+			vim.cmd("silent write")
+		end
+	end,
+})
