@@ -126,4 +126,4 @@ if [ -f ~/.bash_custom ]; then
 fi
 
 echo "zellij sessions:"
-tmux ls
+zellij list-sessions
