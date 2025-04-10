@@ -79,8 +79,7 @@ alias tmuxrs="tmux rename-session -t"
 # List tmux sessions: tmux list-sessions
 alias tmuxls="tmux ls"
 
-# Zellij aliases
-# Create new Zellij session: zns <session_name>
+# Zellij aliases Create new Zellij session: zns <session_name>
 alias zelns="zellij -s"
 # Attach to Zellij session: zas <session_name>
 alias zelas="zellij attach -s"
