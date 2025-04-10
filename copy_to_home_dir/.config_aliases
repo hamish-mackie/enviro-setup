@@ -81,17 +81,13 @@ alias tmuxls="tmux ls"
 
 # Zellij aliases
 # Create new Zellij session: zns <session_name>
-alias zns="zellij -s"
-
+alias zelns="zellij -s"
 # Attach to Zellij session: zas <session_name>
-alias zas="zellij attach -s"
-
+alias zelas="zellij attach -s"
 # Kill Zellij session: zks <session_name>
-alias zks="zellij kill-session"
-
+alias zelks="zellij kill-session"
 # Rename Zellij session: zrs <old_name> <new_name>
-alias zrs="zellij rename-session"
-
+alias zelrs="zellij rename-session"
 # List Zellij sessions: zls
-alias zls="zellij list-sessions"
+alias zells="zellij list-sessions"
 

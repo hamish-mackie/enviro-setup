@@ -1,0 +1,76 @@
+keybinds {
+    unbind "Ctrl s"
+    unbind "Ctrl q"
+    unbind "Ctrl h"
+    unbind "Ctrl j"
+    unbind "Ctrl k"
+    unbind "Ctrl l"
+    unbind "Ctrl p"
+    unbind "Ctrl n"
+    unbind "Ctrl t"
+    unbind "Ctrl w"
+    unbind "Ctrl c"
+    unbind "Ctrl v"
+
+    // Set prefix key (similar to tmux)
+    normal {
+        bind "Ctrl a" { SwitchToMode "Locked"; }
+    }
+
+    locked {
+        bind "?" { SwitchToMode "Pane"; }
+        bind "a" { Write 0x01; } // send Ctrl-a through to underlying program
+        bind "c" { NewTab; }
+        bind "x" { ClosePane; }
+        bind "n" { GoToNextTab; }
+        bind "p" { GoToPreviousTab; }
+        bind "f" { SwitchToMode "Resize"; }
+        bind "r" { SwitchToMode "RenameTab"; }
+        bind "s" { ToggleFloatingPanes; }
+        bind "[" { MoveTabLeft; }
+        bind "]" { MoveTabRight; }
+
+        // Split panes intuitively (horizontal/vertical)
+        bind "-" { SplitHorizontal; }
+        bind "\\" { SplitVertical; }
+
+        // Pane navigation with arrow keys and hjkl (vim-like navigation)
+        bind "h" { MoveFocus "Left"; }
+        bind "j" { MoveFocus "Down"; }
+        bind "k" { MoveFocus "Up"; }
+        bind "l" { MoveFocus "Right"; }
+
+        bind "Left" { MoveFocus "Left"; }
+        bind "Down" { MoveFocus "Down"; }
+        bind "Up" { MoveFocus "Up"; }
+        bind "Right" { MoveFocus "Right"; }
+
+        // Detach session (like tmux)
+        bind "d" { Detach; }
+
+        // Exit locked mode easily
+        bind "Esc" { SwitchToMode "Normal"; }
+        bind "Enter" { SwitchToMode "Normal"; }
+    }
+
+    resize {
+        bind "h" { Resize "Left"; }
+        bind "j" { Resize "Down"; }
+        bind "k" { Resize "Up"; }
+        bind "l" { Resize "Right"; }
+
+        bind "Left" { Resize "Left"; }
+        bind "Down" { Resize "Down"; }
+        bind "Up" { Resize "Up"; }
+        bind "Right" { Resize "Right"; }
+
+        bind "Esc" { SwitchToMode "Locked"; }
+        bind "Enter" { SwitchToMode "Locked"; }
+    }
+}
+
+theme "catppuccin-mocha"
+
+scrollback_lines 10000
+
+default_layout "compact"
