@@ -78,3 +78,19 @@ alias tmuxks="tmux kill-session -t"
 alias tmuxrs="tmux rename-session -t"
 # List tmux sessions: tmux list-sessions
 alias tmuxls="tmux ls"
+
+# Zellij aliases
+# Create new Zellij session: zns <session_name>
+alias zns="zellij -s"
+
+# Attach to Zellij session: zas <session_name>
+alias zas="zellij attach -s"
+
+# Kill Zellij session: zks <session_name>
+alias zks="zellij kill-session"
+
+# Rename Zellij session: zrs <old_name> <new_name>
+alias zrs="zellij rename-session"
+
+# List Zellij sessions: zls
+alias zls="zellij list-sessions"
