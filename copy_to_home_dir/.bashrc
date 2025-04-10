@@ -125,5 +125,5 @@ if [ -f ~/.bash_custom ]; then
     . ~/.bash_custom
 fi
 
-echo "tmux sessions:"
+echo "zellij sessions:"
 tmux ls

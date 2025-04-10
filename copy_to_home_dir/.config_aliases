@@ -94,3 +94,4 @@ alias zrs="zellij rename-session"
 
 # List Zellij sessions: zls
 alias zls="zellij list-sessions"
+
