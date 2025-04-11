@@ -19,8 +19,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		vim.defer_fn(function()
-			require("nvim-tree.api").tree.open()
-		end, 10) -- Adjust the delay if necessary
+			local api = require("nvim-tree.api")
+			api.tree.open()
+			vim.cmd("wincmd p") -- switch back to previous window
+		end, 50)
 	end,
 })
 

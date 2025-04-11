@@ -13,10 +13,14 @@ curl -L --progress-bar https://github.com/zellij-org/zellij/releases/download/v0
 # Link binary to ~/bin
 ln -sf "$PWD/data_zellij/zellij" ~/bin/zellij
 
+mkdir -p ~/.config/zellij/
 cp -r $PWD/zellij_config/* ~/.config/zellij/
 
 echo "Done! To run Zellij, use: ~/bin/zellij"
 echo "To run it as just 'zellij', make sure ~/bin is in your PATH."
+echo "Run:" 
+echo " 	zellij setup --check"
+echo "	zellij kill-all-sessions"
 
 # Optional: update PATH in shell profile
 if ! echo "$PATH" | grep -q "$HOME/bin"; then
