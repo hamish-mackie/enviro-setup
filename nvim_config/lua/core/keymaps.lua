@@ -105,3 +105,12 @@ end, { desc = "Copy using OSC53" })
 map("n", "<Tab>", ":BufferNext<CR>", opts)
 map("n", "<S-Tab>", ":BufferPrevious<CR>", opts)
 map("n", "<leader>tc", ":BufferClose<CR>", { desc = "[T]ab [C]lose" }, opts)
+
+-- Buffers
+map("n", "<leader>be", ":enew<CR>", opts) -- New empty buffer
+map("n", "<leader>bd", ":bd<CR>", opts) -- Delete current buffer
+map("n", "<leader>bl", ":ls<CR>", opts) -- List buffers
+map("n", "<leader>bn", ":bnext<CR>", opts) -- Next buffer
+map("n", "<leader>bp", ":bprev<CR>", opts) -- Previous buffer-- Splits
+map("n", "<leader>sv", ":vsplit<Space>", opts) -- Vertical split
+map("n", "<leader>sh", ":split<Space>", opts) -- Horizontal split
