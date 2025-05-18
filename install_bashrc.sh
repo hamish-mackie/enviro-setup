@@ -10,4 +10,6 @@ cp "$HOME/.bashrc" "$dest_dir"
 
 echo "Backup of .bashrc completed at $dest_dir"
 
-cp -r copy_to_home_dir/. ~/
+ln -sf "$PWD/configs/bashrc/.bashrc" ~/.bashrc
+ln -sf "$PWD/configs/bashrc/.config_aliases" ~/.config_aliases
+ln -sf "$PWD/configs/tmux/.tmux.conf" ~/.tmux.conf

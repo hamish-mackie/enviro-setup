@@ -13,6 +13,7 @@ local plugins = {
 	require("plugins.luasnip"),
 	require("plugins.osc52"),
 	require("plugins.barbar"),
+	require("plugins.git"),
 	-- require("plugins.catppuccin"),
 	require("plugins.which-key"),
 	require("plugins.monokai-pro"),
