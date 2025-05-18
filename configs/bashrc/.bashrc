@@ -132,3 +132,4 @@ fi
 
 echo "zellij sessions:"
 zellij list-sessions
+PATH=$PATH:~/bin

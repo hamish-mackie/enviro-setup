@@ -17,6 +17,7 @@ local plugins = {
 	-- require("plugins.catppuccin"),
 	require("plugins.which-key"),
 	require("plugins.monokai-pro"),
+	require("plugins.lualine"),
 }
 
 return plugins
