@@ -1,27 +1,24 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-# 1. Create a temporary working directory and change into it
-TMPDIR=$(mktemp -d)
-cd "$TMPDIR"
+# 1. Prepare data_unzip directory
+mkdir -p data_unzip
+cd data_unzip
 
-# 2. Download the 'unzip' package (no sudo needed, just downloads the deb file)
+# 2. Download the unzip .deb package
 apt download unzip
 
-# 3. Extract the .deb into a subfolder
+# 3. Extract its contents
 dpkg -x unzip_*.deb extracted
 
-# 4. Create ~/bin if it doesn't exist
+# 4. Create ~/bin if needed
 mkdir -p ~/bin
 
-# 5. Copy the extracted unzip binary to ~/bin, renaming it
-cp extracted/usr/bin/unzip ~/bin/unzip
+# 5. Symlink the unzip binary into ~/bin
+ln -sf "$PWD/extracted/usr/bin/unzip" ~/bin/unzip
 
-# 6. Make sure it’s executable
-chmod +x ~/bin/unzip
+# 6. Go back to original directory
+cd -
 
-# Optional cleanup of the temporary directory
-rm -rf "$TMPDIR"
-
-echo "All done! You can now run it using: ~/bin/unzip"
-echo "If you want to just type 'unzip', ensure ~/bin is in your PATH."
+echo "unzip is now available as ~/bin/unzip"
+echo "If you want to run it just by typing 'unzip', make sure ~/bin is in your PATH (e.g. via ./helper_add_to_path.sh)."

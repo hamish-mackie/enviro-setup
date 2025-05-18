@@ -9,9 +9,7 @@ ln -sf $PWD/data_neovim/bin/nvim ~/bin/nvim
 
 ./helper_add_to_path.sh
 
-mkdir -p ~/.config/nvim
-
-cp -r $PWD/nvim_config/* ~/.config/nvim/
+ln -sf $PWD/configs/nvim ~/.config/nvim
 
 source ~/.bashrc
 
