@@ -37,7 +37,7 @@ return {
 				default = { "lsp", "path", "snippets", "buffer" }, -- Removed "nvim_lua"
 				per_filetype = {
 					python = { inherit_defaults = true, "lsp", "path", "snippets", "buffer" },
-					gitcommit = { "buffer", "emoji" },
+					gitcommit = { "buffer" },
 				},
 			},
 			snippets = {
