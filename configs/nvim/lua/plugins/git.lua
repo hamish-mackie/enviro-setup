@@ -1,15 +1,7 @@
--- Plugins: Git
--- https://github.com/rafi/vim-config
-
 local has_git = vim.fn.executable("git") == 1
 
 return {
-
-	-----------------------------------------------------------------------------
 	-- Git signs written in pure lua
-	-- See: https://github.com/lewis6991/gitsigns.nvim#usage
-	-- NOTE: This extends
-	-- $XDG_DATA_HOME/nvim/lazy/LazyVim/lua/lazyvim/plugins/editor.lua
 	{
 		"gitsigns.nvim",
 		cond = has_git,
@@ -43,7 +35,6 @@ return {
 		},
 	},
 
-	-----------------------------------------------------------------------------
 	-- Tabpage interface for cycling through diffs
 	{
 		"sindrets/diffview.nvim",
@@ -94,7 +85,6 @@ return {
 		end,
 	},
 
-	-----------------------------------------------------------------------------
 	-- Magit clone for Neovim
 	{
 		"NeogitOrg/neogit",
@@ -119,7 +109,6 @@ return {
 		},
 	},
 
-	-----------------------------------------------------------------------------
 	-- Git blame visualizer
 	{
 		"FabijanZulj/blame.nvim",

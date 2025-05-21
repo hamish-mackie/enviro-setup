@@ -1,4 +1,3 @@
--- lua/plugins/init.lua
 local plugins = {
 	require("plugins.blink"),
 	require("plugins.conform"),
