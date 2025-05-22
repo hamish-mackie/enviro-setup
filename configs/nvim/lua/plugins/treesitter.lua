@@ -5,7 +5,7 @@ return {
 	event = { "BufReadPost", "BufNewFile" },
 	opts = {
 		-- List of parsers to install
-		ensure_installed = { "cpp", "python", "yaml", "json", "cmake", "ansible" },
+		ensure_installed = { "cpp", "python", "yaml", "json", "cmake", "ansible", "lua_ls" },
 		sync_install = false, -- install parsers asynchronously
 		auto_install = true, -- automatically install missing parsers when entering buffer
 
