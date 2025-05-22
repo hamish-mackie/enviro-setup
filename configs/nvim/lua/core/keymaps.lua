@@ -3,6 +3,7 @@ local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 
+map("n", "<leader>s", "<Nop>", { desc = "[S]earch prefix" })
 map("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 map("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
 map("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
@@ -32,15 +33,16 @@ map("n", "<leader>sn", function()
     builtin.find_files({ cwd = vim.fn.stdpath("config") })
 end, { desc = "[S]earch [N]eovim files" })
 
+map("n", "<leader>g", "<Nop>", { desc = "[G]it" })
 map(
     "n",
-    "<leader>sgf",
+    "<leader>gsf",
     builtin.git_files,
-    { desc = "[S]earch [G]it [F]iles" }
+    { desc = "[G]it [S]earch [F]iles" }
 )
-map("n", "<leader>gsc", builtin.git_commits, { desc = "[S]earch [G]it [C]ommits" })
-map("n", "<leader>gsb", builtin.git_branches, { desc = "[S]earch [G]it [B]ranches" })
-map("n", "<leader>gss", builtin.git_status, { desc = "[S]earch [G]it [S]tatus" })
+map("n", "<leader>gsc", builtin.git_commits, { desc = "[G]it [S]earch [C]ommits" })
+map("n", "<leader>gsb", builtin.git_branches, { desc = "[G]it [S]earch [B]ranches" })
+map("n", "<leader>gss", builtin.git_status, { desc = "[G]it [S]earch [S]tatus" })
 
 -- Insert-mode cursor movements
 map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line" })
