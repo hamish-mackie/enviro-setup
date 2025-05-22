@@ -8,7 +8,7 @@ return {
 			require("lsp.ansible")
 			require("lsp.json")
 			require("lsp.yaml")
-			require("lsp.lua_lus")
+			require("lsp.lua_ls")
 		end,
 	},
 }
