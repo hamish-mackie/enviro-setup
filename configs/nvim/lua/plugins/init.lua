@@ -5,7 +5,7 @@ local plugins = {
     require("plugins.telescope"),
     -- require("plugins.lsp"),
     require("plugins.treesitter"),
-    -- require("plugins.mason"),
+    require("plugins.mason"),
     require("plugins.cmake-tools"),
     require("plugins.num-to-str"),
     require("plugins.gitsigns"),
