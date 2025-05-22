@@ -2,7 +2,7 @@ local builtin = require("telescope.builtin")
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
--- Telescope Keymaps (From first config)
+
 map("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 map("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
 map("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
@@ -15,21 +15,21 @@ map("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." fo
 map("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 
 map("n", "<leader>/", function()
-	builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-		winblend = 10,
-		previewer = false,
-	}))
+    builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+        winblend = 10,
+        previewer = false,
+    }))
 end, { desc = "[/] Fuzzily search in current buffer" })
 
 map("n", "<leader>s/", function()
-	builtin.live_grep({
-		grep_open_files = true,
-		prompt_title = "Live Grep in Open Files",
-	})
+    builtin.live_grep({
+        grep_open_files = true,
+        prompt_title = "Live Grep in Open Files",
+    })
 end, { desc = "[S]earch [/] in Open Files" })
 
 map("n", "<leader>sn", function()
-	builtin.find_files({ cwd = vim.fn.stdpath("config") })
+    builtin.find_files({ cwd = vim.fn.stdpath("config") })
 end, { desc = "[S]earch [N]eovim files" })
 
 -- Insert-mode cursor movements
@@ -54,31 +54,39 @@ map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "copy whole file" })
 -- Toggles
 map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "toggle line number" })
 map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "toggle relative number" })
-map("n", "<leader>ch", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatsheet" })
 
 -- Formatting
 map("n", "<leader>fm", function()
-	require("conform").format({ lsp_fallback = true })
+    require("conform").format({ lsp_fallback = true })
 end, { desc = "format file" })
 
--- LSP
-map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
-
--- LSP Keymaps (from first config)
+-- Definitions & Declarations
 map("n", "gd", builtin.lsp_definitions, { desc = "[G]oto [D]efinition" })
-map("n", "gr", builtin.lsp_references, { desc = "[G]oto [R]eferences" })
-map("n", "gI", builtin.lsp_implementations, { desc = "[G]oto [I]mplementation" })
-map("n", "<leader>D", builtin.lsp_type_definitions, { desc = "Type [D]efinition" })
-map("n", "<leader>ds", builtin.lsp_document_symbols, { desc = "[D]ocument [S]ymbols" })
-map("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
-map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
-map({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
-map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
+
+-- Type Definition
+map("n", "<leader>D", builtin.lsp_type_definitions, { desc = "Type [D]efinition" })
+
+-- Workspace Symbols
+map("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
+
+-- References, Implementations, Rename & Document Symbols (from second config)
+map("n", "grr", vim.lsp.buf.references, { desc = "[G]oto [R]eferences" })
+map("n", "gri", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation" })
+map("n", "grn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
+map("n", "gO", vim.lsp.buf.document_symbol, { desc = "[D]ocument [S]ymbols" })
+map({ "n", "x" }, "gra", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
+map({ "i", "s" }, "<C-s>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
+
+map("n", "<leader>q", vim.diagnostic.setloclist, {
+    noremap = true,
+    silent = true,
+    desc = "Open diagnostic [Q]uickfix list"
+})
 
 -- Toggle Inlay Hints
 map("n", "<leader>th", function()
-	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
 end, { desc = "[T]oggle Inlay [H]ints" })
 
 -- NvimTree
@@ -86,8 +94,8 @@ map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "toggle NvimTree" })
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "focus NvimTree" })
 
 -- Copy to system clipboard
-map("v", "<leader>y", '"+y') -- Visual mode copy
-map("n", "<leader>y", '"+y') -- Normal mode copy (single motion)
+map("v", "<leader>y", '"+y')   -- Visual mode copy
+map("n", "<leader>y", '"+y')   -- Normal mode copy (single motion)
 map("n", "<leader>Y", '"+yg_') -- Normal mode copy to end of line
 map("n", "<leader>yy", '"+yy') -- Normal mode copy whole line
 
@@ -98,7 +106,7 @@ map("v", "<leader>p", '"+p') -- Paste over selection in visual mode
 map("v", "<leader>P", '"+P') -- Paste before selection in visual mode
 
 map("n", "<leader>c", function()
-	require("osc53").copy_register('"')
+    require("osc53").copy_register('"')
 end, { desc = "Copy using OSC53" })
 
 -- barbar tabs
@@ -107,10 +115,12 @@ map("n", "<S-Tab>", ":BufferPrevious<CR>", opts)
 map("n", "<leader>tc", ":BufferClose<CR>", { desc = "[T]ab [C]lose" }, opts)
 
 -- Buffers
-map("n", "<leader>be", ":enew<CR>", opts) -- New empty buffer
-map("n", "<leader>bd", ":bd<CR>", opts) -- Delete current buffer
-map("n", "<leader>bl", ":ls<CR>", opts) -- List buffers
-map("n", "<leader>bn", ":bnext<CR>", opts) -- Next buffer
-map("n", "<leader>bp", ":bprev<CR>", opts) -- Previous buffer-- Splits
-map("n", "<leader>sv", ":vsplit<Space>", opts) -- Vertical split
-map("n", "<leader>sh", ":split<Space>", opts) -- Horizontal split
+map("n", "<leader>be", ":enew<CR>", { desc = "[B]uffer [E]new" })
+map("n", "<leader>bd", ":bd<CR>", { desc = "[B]uffer [D]elete" })
+map("n", "<leader>bl", ":ls<CR>", { desc = "[B]uffer [L]ist" })
+map("n", "<leader>bn", ":bnext<CR>", { desc = "[B]uffer [N]ext" })
+map("n", "<leader>bp", ":bprev<CR>", { desc = "[B]uffer [P]revious" })
+
+-- Splits
+map("n", "<leader>bs|", ":vsplit<CR>", { desc = "[B]uffer [S]plit [V]ertical |" })
+map("n", "<leader>bs-", ":split<CR>", { desc = "[B]uffer [S]plit [H]orizontal -" })
