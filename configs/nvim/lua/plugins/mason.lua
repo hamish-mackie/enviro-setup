@@ -1,9 +1,17 @@
 -- lua/plugins/mason.lua
 return {
   {
-    -- make sure you’ve got the correct repo here:
     "williamboman/mason.nvim",
-    opts = {},  -- any Mason UI settings you like
+    opts = {
+      -- (optional) adjust Mason settings here
+      ui = {
+        icons = {
+          package_installed   = "✓",
+          package_pending     = "➜",
+          package_uninstalled = "✗",
+        },
+      },
+    },
   },
   {
     "williamboman/mason-lspconfig.nvim",
