@@ -32,6 +32,16 @@ map("n", "<leader>sn", function()
     builtin.find_files({ cwd = vim.fn.stdpath("config") })
 end, { desc = "[S]earch [N]eovim files" })
 
+map(
+    "n",
+    "<leader>sgf",
+    builtin.git_files,
+    { desc = "[S]earch [G]it [F]iles" }
+)
+map("n", "<leader>gsc", builtin.git_commits, { desc = "[S]earch [G]it [C]ommits" })
+map("n", "<leader>gsb", builtin.git_branches, { desc = "[S]earch [G]it [B]ranches" })
+map("n", "<leader>gss", builtin.git_status, { desc = "[S]earch [G]it [S]tatus" })
+
 -- Insert-mode cursor movements
 map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line" })
 map("i", "<C-e>", "<End>", { desc = "move end of line" })
