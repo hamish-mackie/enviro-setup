@@ -9,6 +9,8 @@ return {
             require("lsp.jsonls")
             require("lsp.yamlls")
             require("lsp.lua_ls")
+            require("lsp.protols")
+            require("lsp.jinja_lsp")
         end,
     },
 }
