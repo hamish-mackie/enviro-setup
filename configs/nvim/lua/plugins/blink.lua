@@ -23,6 +23,7 @@ return {
         },
     },
     config = function()
+        require("cmp").setup({})
         local blink_cmp = require("blink.cmp")
 
         blink_cmp.setup({
