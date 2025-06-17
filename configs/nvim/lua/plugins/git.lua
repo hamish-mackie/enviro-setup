@@ -7,8 +7,8 @@ return {
         cond = has_git,
         cmd = { "DiffviewOpen", "DiffviewFileHistory" },
         keys = {
-            { "<leader>gD", "<cmd>DiffviewFileHistory %<CR>", desc = "Diff File" },
-            { "<leader>gv", "<cmd>DiffviewOpen<CR>",          desc = "Diff View" },
+            { "<leader>gD", "<cmd>DiffviewFileHistory %<CR>", desc = "[Git] [D]iff File" },
+            { "<leader>gv", "<cmd>DiffviewOpen<CR>",          desc = "[Git] Diff [V]iew" },
         },
         opts = function()
             local actions = require("diffview.actions")
