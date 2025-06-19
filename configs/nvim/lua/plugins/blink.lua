@@ -1,6 +1,7 @@
 return {
     "saghen/blink.cmp",
-    event = "InsertEnter", -- lazy-load on insert
+    build = 'cargo build --release', -- for delimiters
+    event = "InsertEnter",           -- lazy-load on insert
     dependencies = {
         -- snippet engine & bridge
         "L3MON4D3/LuaSnip",
@@ -45,7 +46,7 @@ return {
                 preset = "luasnip",
             },
             fuzzy = {
-                implementation = "lua", --"prefer_rust_with_warning"
+                implementation = "prefer_rust_with_warning",
                 sorts = {
                     function(a, b)
                         if a.source_id == "lsp" and b.source_id ~= "lsp" then

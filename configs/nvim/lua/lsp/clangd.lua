@@ -1,6 +1,8 @@
 local lspconfig = require("lspconfig")
+local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 lspconfig.clangd.setup({
+    capabilities = capabilities,
     cmd = {
         filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "h", "hpp" },
         "clangd",
