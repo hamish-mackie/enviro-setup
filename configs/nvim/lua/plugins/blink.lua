@@ -28,7 +28,7 @@ return {
         local blink_cmp = require("blink.cmp")
 
         blink_cmp.setup({
-            keymap = { preset = "default" },
+            keymap = { preset = "super-tab" },
             completion = {
                 documentation = { auto_show = false },
             },
