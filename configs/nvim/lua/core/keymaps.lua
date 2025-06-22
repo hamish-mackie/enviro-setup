@@ -83,8 +83,8 @@ map("n", "<leader>D", builtin.lsp_type_definitions, { desc = "Type [D]efinition"
 map("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
 
 -- References, Implementations, Rename & Document Symbols (from second config)
-map("n", "grr", vim.lsp.buf.references, { desc = "[G]oto [R]eferences" })
-map("n", "gri", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation" })
+map("n", "grr", builtin.lsp_references, { desc = "[G]oto [R]eferences" })
+map("n", "gri", builtin.lsp_implementations, { desc = "[G]oto [I]mplementation" })
 map("n", "grn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
 map("n", "gO", vim.lsp.buf.document_symbol, { desc = "[D]ocument [S]ymbols" })
 map({ "n", "x" }, "gra", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })

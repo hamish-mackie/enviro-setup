@@ -11,8 +11,13 @@ return {
                 return vim.fn.executable("make") == 1
             end,
         },
-        { "nvim-telescope/telescope-ui-select.nvim" },
-        { "nvim-tree/nvim-web-devicons",            enabled = vim.g.have_nerd_font },
+        {
+            "nvim-telescope/telescope-ui-select.nvim"
+        },
+        {
+            "nvim-tree/nvim-web-devicons",
+            enabled = vim.g.have_nerd_font
+        },
     },
     config = function()
         local actions = require("telescope.actions")
@@ -39,6 +44,12 @@ return {
             extensions = {
                 ["ui-select"] = {
                     require("telescope.themes").get_dropdown(),
+                },
+                fzf = {
+                    fuzzy = true,
+                    override_generic_sorter = true,
+                    override_file_sorter = true,
+                    case_mode = "smart_case", -- or "ignore_case", "respect_case"
                 },
             },
         })
