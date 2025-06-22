@@ -1,16 +1,12 @@
 return {
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = { "b0o/schemastore.nvim" },
-        config = function()
-            require("lsp.clangd")
-            require("lsp.pyright")
-            require("lsp.ansiblels")
-            require("lsp.jsonls")
-            require("lsp.yamlls")
-            require("lsp.lua_ls")
-            require("lsp.protols")
-            require("lsp.jinja_lsp")
-        end,
-    },
+    "neovim/nvim-lspconfig",
+    dependencies = { "saghen/blink.cmp" },
+    config = function()
+        local lspconfig    = require("lspconfig")
+        local capabilities = require("blink.cmp").get_lsp_capabilities()
+        for _, server in ipairs({ "clangd", "pyright", "lua_ls", "jsonls",
+            "yamlls", "ansiblels", "protols", "jinja_lsp" }) do
+            lspconfig[server].setup({ capabilities = capabilities })
+        end
+    end,
 }

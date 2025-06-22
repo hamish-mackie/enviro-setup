@@ -22,8 +22,8 @@ return {
         blink_cmp.setup({
             keymap = { preset = "super-tab" },
             completion = {
-                documentation = { auto_show = false },
-                ghost_text = { enabled = false },
+                documentation = { auto_show = true },
+                ghost_text = { enabled = true },
             },
             appearance = {
                 nerd_font_variant = "mono",
