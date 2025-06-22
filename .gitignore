@@ -1,2 +1,11 @@
-/data_*
-lazy-lock.json
+# Ignore everything by default
+*
+
+!.gitignore
+!README.md
+
+!*.sh
+
+# Unignore configs folder and all its contents
+!configs/
+!configs/**
