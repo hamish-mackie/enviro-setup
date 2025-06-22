@@ -1,13 +1,16 @@
+-- Highlights the word under the cursor using LSP, when supported
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = true }),
     callback = function(event)
         local client = vim.lsp.get_client_by_id(event.data.client_id)
 
         if client and client:supports_method("textDocument/documentHighlight") then
+            -- When cursor is held, highlight symbol references
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
                 buffer = event.buf,
                 callback = vim.lsp.buf.document_highlight,
             })
+            -- Clear highlight when cursor moves
             vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
                 buffer = event.buf,
                 callback = vim.lsp.buf.clear_references,
@@ -16,18 +19,44 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
+-- Automatically open nvim-tree when Neovim launches, but switch back to the previous window
 vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
         vim.defer_fn(function()
             local api = require("nvim-tree.api")
             api.tree.open()
-            vim.cmd("wincmd p") -- switch back to previous window
+            vim.cmd("wincmd p") -- Return focus to previous window
         end, 50)
     end,
 })
 
--- Automatically reload file when opened
+-- Reload file from disk if it changed externally while you're editing
 vim.api.nvim_create_autocmd("BufEnter", {
     pattern = "*",
     command = "checktime",
+})
+
+-- Briefly highlight yanked (copied) text for visual feedback
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+        vim.highlight.on_yank({ higroup = "IncSearch", timeout = 200 })
+    end,
+})
+
+-- Enable relative line numbers only in the active window and in normal mode
+vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave", "WinEnter", "WinLeave" }, {
+    callback = function()
+        local rnu = vim.bo[vim.api.nvim_get_current_buf()].modifiable and vim.fn.mode() == "n"
+        vim.wo.relativenumber = rnu
+    end,
+})
+
+-- Restore cursor position to where you left off when reopening a file
+vim.api.nvim_create_autocmd("BufReadPost", {
+    callback = function()
+        local mark = vim.api.nvim_buf_get_mark(0, "\"")[1]
+        if mark > 1 and mark <= vim.api.nvim_buf_line_count(0) then
+            pcall(vim.cmd, 'normal! g`"')
+        end
+    end,
 })

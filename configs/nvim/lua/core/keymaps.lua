@@ -106,10 +106,13 @@ map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "toggle NvimTree" })
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "focus NvimTree" })
 
 -- Copy to system clipboard
-map("v", "<leader>y", '"+y')   -- Visual mode copy
-map("n", "<leader>y", '"+y')   -- Normal mode copy (single motion)
-map("n", "<leader>Y", '"+yg_') -- Normal mode copy to end of line
-map("n", "<leader>yy", '"+yy') -- Normal mode copy whole line
+map("v", "<leader>y", '"+y', { desc = "Copy selection to system clipboard" })
+
+-- In normal mode:
+map("n", "<leader>yy", '"+yy', { desc = "Copy current line to system clipboard" })
+map("n", "<leader>y", '"+y', { desc = "Copy motion to system clipboard" }) -- e.g. <leader>yw, <leader>y$ etc.
+map("n", "<leader>Y", '"+yg_', { desc = "Copy to end of line to system clipboard" })
+
 
 -- Paste from system clipboard
 map("n", "<leader>p", '"+p') -- Paste after cursor in normal mode
@@ -136,3 +139,23 @@ map("n", "<leader>bp", ":bprev<CR>", { desc = "[B]uffer [P]revious" })
 -- Splits
 map("n", "<leader>bs|", ":vsplit<CR>", { desc = "[B]uffer [S]plit [V]ertical |" })
 map("n", "<leader>bs-", ":split<CR>", { desc = "[B]uffer [S]plit [H]orizontal -" })
+
+-- Toggle line comment (normal mode)
+map("n", "<leader>/", function()
+    require("Comment.api").toggle.linewise.current()
+end, { desc = "Toggle line comment" })
+
+-- Toggle block comment (normal mode)
+map("n", "<leader>*", function()
+    require("Comment.api").toggle.blockwise.current()
+end, { desc = "Toggle block comment" })
+
+-- Toggle line comment in visual mode
+map("v", "<leader>/", function()
+    require("Comment.api").toggle.linewise(vim.fn.visualmode())
+end, { desc = "Toggle line comment (visual)" })
+
+-- Toggle block comment in visual mode
+map("v", "<leader>*", function()
+    require("Comment.api").toggle.blockwise(vim.fn.visualmode())
+end, { desc = "Toggle block comment (visual)" })

@@ -1,29 +1,26 @@
 return {
     "numToStr/Comment.nvim",
-    lazy = false, -- Set to true if you want to load on specific events
+    lazy = false,
     config = function()
         require("Comment").setup({
-            -- Optional custom settings (default is usually good)
             padding = true,
             sticky = true,
             ignore = nil,
+
             toggler = {
-                line = "gcc",
-                block = "gbc",
+                line = "<leader>/",
+                block = "<leader>*",
             },
             opleader = {
-                line = "gc",
-                block = "gb",
+                line = "<leader>c",
+                block = "<leader>b",
             },
-            extra = {
-                above = "gcO",
-                below = "gco",
-                eol = "gcA",
-            },
+
             mappings = {
-                basic = true,
-                extra = true,
+                basic = false,
+                extra = false,
             },
+
             pre_hook = nil,
             post_hook = nil,
         })
