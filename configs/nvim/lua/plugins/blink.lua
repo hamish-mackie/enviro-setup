@@ -1,6 +1,6 @@
 return {
     "saghen/blink.cmp",
-    version = "1.*", -- Use pre-built fuzzy-matcher (recommended)
+    build = 'cargo build --release',
     event = "InsertEnter",
     dependencies = {
         "L3MON4D3/LuaSnip",
