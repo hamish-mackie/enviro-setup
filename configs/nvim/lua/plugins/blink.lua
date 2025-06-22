@@ -56,9 +56,14 @@ return {
                     gitcommit = { "buffer" },
                 },
             },
+
             cmdline = {
-                enable = true,
-                mappings = true, -- Uses `preset.cmdline()`
+                enabled = true,
+                keymap = { preset = "inherit" },
+                completion = {
+                    menu = { auto_show = true, },
+                    ghost_text = { enabled = true },
+                },
             },
         })
     end,
