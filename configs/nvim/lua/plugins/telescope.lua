@@ -40,6 +40,7 @@ return {
                         ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
                     },
                 },
+                find_command = { "fd", "--type", "f" } -- "--strip-cwd-prefix"
             },
             extensions = {
                 ["ui-select"] = {
