@@ -39,7 +39,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- Briefly highlight yanked (copied) text for visual feedback
 vim.api.nvim_create_autocmd("TextYankPost", {
     callback = function()
-        vim.highlight.on_yank({ higroup = "IncSearch", timeout = 200 })
+        vim.highlight.on_yank({ higroup = "IncSearch", timeout = 500 })
     end,
 })
 
