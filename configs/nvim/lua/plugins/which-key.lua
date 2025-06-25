@@ -27,6 +27,7 @@ return {
                     { "<leader>l", group = "lsp" },
                     { "<leader>q", group = "quit/session" },
                     { "<leader>s", group = "search" },
+                    { "<leader>u", group = "utils" },
                     { "<leader>t", group = "test/tasks" },
                     { "gc",        group = "comment line" },
                     { "gb",        group = "comment block" },

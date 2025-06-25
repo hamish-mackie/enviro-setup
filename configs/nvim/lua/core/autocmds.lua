@@ -47,7 +47,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave", "WinEnter", "WinLeave" }, {
     callback = function()
         local rnu = vim.bo[vim.api.nvim_get_current_buf()].modifiable and vim.fn.mode() == "n"
-        vim.wo.relativenumber = rnu
     end,
 })
 
