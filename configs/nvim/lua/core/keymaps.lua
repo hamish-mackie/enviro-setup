@@ -61,8 +61,8 @@ map("n", "<C-s>", "<cmd>w<CR>", { desc = "save file" })
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "copy whole file" })
 
 -- Toggles
-map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "toggle line number" })
-map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "toggle relative number" })
+map("n", "<leader>un", "<cmd>set nu!<CR>", { desc = "toggle line number" })
+map("n", "<leader>urn", "<cmd>set rnu!<CR>", { desc = "toggle relative number" })
 
 -- Formatting
 map("n", "<leader>fm", function()
@@ -79,7 +79,7 @@ map("n", "<leader>D", builtin.lsp_type_definitions, { desc = "Type [D]efinition"
 -- Workspace Symbols
 map("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
 
--- References, Implementations, Rename & Document Symbols (from second config)
+-- References, Implementations, Rename & Document Symbols
 map("n", "grr", builtin.lsp_references, { desc = "[G]oto [R]eferences" })
 map("n", "gri", builtin.lsp_implementations, { desc = "[G]oto [I]mplementation" })
 map("n", "grn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
