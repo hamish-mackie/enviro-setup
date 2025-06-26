@@ -1,24 +1,95 @@
--- treesitter.lua
 return {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
-    opts = {
-        -- List of parsers to install
-        ensure_installed = { "cpp", "python", "yaml", "json", "cmake", "lua" },
-        sync_install = false, -- install parsers asynchronously
-        auto_install = true,  -- automatically install missing parsers when entering buffer
-
-        highlight = {
-            enable = true, -- false will disable the whole extension
-            additional_vim_regex_highlighting = false,
+    -- Main Treesitter plugin
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        event = { "BufReadPost", "BufNewFile" },
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter-textobjects",
+            "nvim-treesitter/playground",
+            "nvim-treesitter/nvim-treesitter-context",
+            "windwp/nvim-ts-autotag",
+            "HiPhish/rainbow-delimiters.nvim",
         },
+        opts = {
+            ensure_installed = {
+                "cpp", "python", "yaml", "json", "cmake", "lua",
+                "bash", "html", "javascript", "typescript", "markdown",
+            },
+            sync_install = false,
+            auto_install = true,
 
-        indent = {
-            enable = true,
+            highlight = {
+                enable = true,
+                additional_vim_regex_highlighting = false,
+            },
+
+            indent = { enable = true },
+
+            -- Incremental Selection
+            incremental_selection = {
+                enable = true,
+                keymaps = {
+                    init_selection = "gnn",
+                    node_incremental = "grn",
+                    scope_incremental = "grc",
+                    node_decremental = "grm",
+                },
+            },
+
+            -- Textobjects
+            textobjects = {
+                select = {
+                    enable = true,
+                    lookahead = true,
+                    keymaps = {
+                        ["af"] = "@function.outer",
+                        ["if"] = "@function.inner",
+                        ["ac"] = "@class.outer",
+                        ["ic"] = "@class.inner",
+                        ["al"] = "@loop.outer",
+                        ["il"] = "@loop.inner",
+                        ["ac"] = "@conditional.outer",
+                        ["ic"] = "@conditional.inner",
+                    },
+                },
+                move = {
+                    enable = true,
+                    set_jumps = true,
+                    goto_next_start = {
+                        ["]m"] = "@function.outer",
+                        ["]]"] = "@class.outer",
+                    },
+                    goto_previous_start = {
+                        ["[m"] = "@function.outer",
+                        ["[["] = "@class.outer",
+                    },
+                },
+            },
+
+            -- Playground (for visualizing treesitter AST)
+            playground = {
+                enable = true,
+                updatetime = 25,
+                persist_queries = false,
+            },
+
+            -- Autotag for auto closing tags
+            autotag = {
+                enable = true,
+            },
+
+            -- Query Linter
+            query_linter = {
+                enable = true,
+                use_virtual_text = true,
+                lint_events = { "BufWrite", "CursorHold" },
+            },
         },
+        config = function(_, opts)
+            require("nvim-treesitter.configs").setup(opts)
+            -- Optional: configure context
+            require("treesitter-context").setup({})
+        end,
     },
-    config = function(_, opts)
-        require("nvim-treesitter.configs").setup(opts)
-    end,
 }
