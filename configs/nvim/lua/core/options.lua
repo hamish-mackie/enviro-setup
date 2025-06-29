@@ -21,3 +21,6 @@ vim.opt.expandtab = true -- insert spaces instead of real TABs
 vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
 
 vim.opt.updatetime = 20
+
+vim.opt.number = true
+vim.opt.relativenumber = true
