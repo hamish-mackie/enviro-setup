@@ -90,3 +90,10 @@ alias zelrs="zellij rename-session"
 # List Zellij sessions: zls
 alias zells="zellij list-sessions"
 
+# -------------------------------------------------
+# Ninja Build
+# -------------------------------------------------
+# List all ninja targets
+alias nt='ninja -t targets'
+# Search ninja targets
+alias nts='ninja -t targets | rg'

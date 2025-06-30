@@ -1,15 +1,34 @@
-#!/bin/bash
-mkdir -p ~/bin
+#!/usr/bin/env bash
+set -euo pipefail
 
-backup_dir="$HOME/backup"
-timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
-dest_dir="$backup_dir/$timestamp"
-mkdir -p "$dest_dir"
+# 0) Make sure ~/.bashrc exists
+[ -f "$HOME/.bashrc" ] || : > "$HOME/.bashrc"
 
-cp "$HOME/.bashrc" "$dest_dir"
+# 1) Add loader block exactly once
+dotfiles_dir="$PWD/configs/bashrc"
+dotfiles_rc="$dotfiles_dir/.bashrc"
+dotfiles_alias="$dotfiles_dir/.config_alias"
+loader_start="# >>> dotfiles loader >>>"
 
-echo "Backup of .bashrc completed at $dest_dir"
+if ! grep -Fq "$loader_start" "$HOME/.bashrc"; then
+    {
+        cat <<EOF
+$loader_start
+if [ -f "$dotfiles_rc" ]; then
+    . "$dotfiles_rc"
+fi
+if [ -f "$dotfiles_alias" ]; then
+    . "$dotfiles_alias"
+fi
+# <<< dotfiles loader <<<
+EOF
+        cat "$HOME/.bashrc"
+    } > "$HOME/.bashrc.tmp" && mv "$HOME/.bashrc.tmp" "$HOME/.bashrc"
+    echo "Loader block added to ~/.bashrc"
+else
+    echo "Loader block already present – skipped"
+fi
 
-ln -sf "$PWD/configs/bashrc/.bashrc" ~/.bashrc
-ln -sf "$PWD/configs/bashrc/.config_aliases" ~/.config_aliases
+# 2) Other dotfiles
 ln -sf "$PWD/configs/tmux/.tmux.conf" ~/.tmux.conf
+
