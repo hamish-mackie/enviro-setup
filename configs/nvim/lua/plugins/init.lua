@@ -17,7 +17,7 @@ local plugins = {
     require("plugins.which-key"),
     require("plugins.monokai-pro"),
     require("plugins.lualine"),
-    require("plugins.auto-save"),
+    -- require("plugins.auto-save"),
     require("plugins.nvim_ufo"),
 }
 
