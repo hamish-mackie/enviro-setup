@@ -1,5 +1,4 @@
 return {
-    -- Main Treesitter plugin
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -10,6 +9,7 @@ return {
             "nvim-treesitter/nvim-treesitter-context",
             "windwp/nvim-ts-autotag",
             "HiPhish/rainbow-delimiters.nvim",
+            "windwp/nvim-autopairs",
         },
         opts = {
             ensure_installed = {
@@ -88,8 +88,11 @@ return {
         },
         config = function(_, opts)
             require("nvim-treesitter.configs").setup(opts)
-            -- Optional: configure context
             require("treesitter-context").setup({})
+            local npairs = require("nvim-autopairs")
+            npairs.setup({
+                check_ts = true, -- use Treesitter to avoid pairing in strings/comments
+            })
         end,
     },
 }

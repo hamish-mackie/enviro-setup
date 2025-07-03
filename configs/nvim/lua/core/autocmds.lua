@@ -30,11 +30,24 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end,
 })
 
--- Reload file from disk if it changed externally while you're editing
-vim.api.nvim_create_autocmd("BufEnter", {
-    pattern = "*",
+-- auto reload
+-- 1. Tell Neovim to keep an eye on the mtime of every file you edit
+vim.opt.autoread = true
+
+-- 2. Regularly ask Neovim “has the file on disk changed?”
+--    (we do it whenever the window regains focus, or you pause typing)
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
     command = "checktime",
 })
+
+-- 3. Nice-to-have: show a little toast when the file *was* reloaded
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+    callback = function()
+        vim.notify("Buffer reloaded – file changed on disk", vim.log.levels.INFO, { title = "autoread" })
+    end,
+})
+
+
 
 -- Briefly highlight yanked (copied) text for visual feedback
 vim.api.nvim_create_autocmd("TextYankPost", {
