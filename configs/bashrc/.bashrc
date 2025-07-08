@@ -8,13 +8,6 @@ if [ -d "$HOME/bin" ] ; then
   PATH="$PATH:$HOME/bin"
 fi
 
-# load our aliases
-CURRENT_DIR="$(pwd)"
-if [ -f "${CURRENT_DIR}/.config_aliases" ]; then
-    source "${CURRENT_DIR}/.config_aliases"
-fi
-
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -127,4 +120,4 @@ if ! shopt -oq posix; then
 fi
 
 echo "tmux sessions:"
-tmuxls
+tmux list-session
