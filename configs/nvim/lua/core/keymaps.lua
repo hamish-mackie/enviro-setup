@@ -157,3 +157,18 @@ end, { desc = "Toggle line comment (visual)" })
 map("v", "<leader>*", function()
     require("Comment.api").toggle.blockwise(vim.fn.visualmode())
 end, { desc = "Toggle block comment (visual)" })
+
+
+-- toggle indents
+map("n", "<leader>ui", function()
+    local ibl = require("ibl")
+    _G.__ibl_enabled = not _G.__ibl_enabled
+
+    if _G.__ibl_enabled then
+        ibl.setup() -- re-enable with default or current opts
+        vim.notify("Indent guides: enabled", vim.log.levels.INFO)
+    else
+        ibl.setup({ enabled = false }) -- disables all guides
+        vim.notify("Indent guides: disabled", vim.log.levels.INFO)
+    end
+end, { desc = "Utils: Toggle indent guides" })
