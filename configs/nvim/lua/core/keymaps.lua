@@ -11,6 +11,8 @@ map("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
 map("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 map("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 map("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+map("n", "<leader>sW", builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
+
 map("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 
 map("n", "<leader>/", function()
@@ -75,9 +77,6 @@ map("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
 
 -- Type Definition
 map("n", "<leader>D", builtin.lsp_type_definitions, { desc = "Type [D]efinition" })
-
--- Workspace Symbols
-map("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
 
 -- References, Implementations, Rename & Document Symbols
 map("n", "grr", builtin.lsp_references, { desc = "[G]oto [R]eferences" })
