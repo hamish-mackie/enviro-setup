@@ -19,6 +19,7 @@ local plugins = {
     require("plugins.lualine"),
     -- require("plugins.auto-save"),
     require("plugins.nvim_ufo"),
+    require("plugins.indent-blankline"),
 }
 
 return plugins

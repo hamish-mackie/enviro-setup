@@ -93,32 +93,4 @@ return {
             })
         end,
     },
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        event = { "BufReadPost", "BufNewFile" },
-        opts = {
-            enabled = false,
-            indent = {
-                char = "┊", -- { "▏", "┆", "┊", "╎", "¦" }
-            },
-            scope = {
-                enabled = false,
-                show_start = false,
-                show_end = false,
-            },
-            exclude = {
-                filetypes = { "help", "lazy", "nvimtree", "Trouble", "mason" },
-                buftypes = { "terminal", "nofile" },
-            },
-        },
-        config = function(_, opts)
-            require("ibl").setup(opts)
-
-            -- Optional: tweak highlight colors for better visibility
-            vim.api.nvim_set_hl(0, "IblIndent", { fg = "#3B3B3B" })
-            vim.api.nvim_set_hl(0, "IblScope", { fg = "#5F87FF" })
-            _G.__ibl_enabled = false
-        end,
-    },
 }
