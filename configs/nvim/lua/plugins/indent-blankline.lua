@@ -3,10 +3,14 @@ return {
     main = "ibl",
     event = { "BufReadPost", "BufNewFile" },
     opts = {
-        enabled = false,
-        indent = { char = "┊" },
+        enabled = false, -- off at startup
+        indent = {
+            char = "┊", -- base indent char
+        },
         scope = {
-            enabled = false,
+            enabled = true,
+            char = "│", -- thicker char for scope
+            highlight = "IblScope",
             show_start = false,
             show_end = false,
         },
@@ -16,7 +20,14 @@ return {
         },
     },
     config = function(_, opts)
+        -- Apply initial opts (disabled by default)
         require("ibl").setup(opts)
+
+        -- Style the scope highlight to make it bold (and optionally colored)
+        vim.api.nvim_set_hl(0, "IblScope", { fg = "#FFD700", bold = true })
+
+        -- Track toggle state
+        vim.g.__ibl_enabled = false
     end,
     keys = {
         {
@@ -27,9 +38,13 @@ return {
                 if vim.g.__ibl_enabled then
                     ibl.setup({
                         enabled = true,
-                        indent = { char = "┊" },
+                        indent = {
+                            char = "┊",
+                        },
                         scope = {
-                            enabled = false,
+                            enabled = true,
+                            char = "│",
+                            highlight = "IblScope",
                             show_start = false,
                             show_end = false,
                         },
@@ -38,10 +53,10 @@ return {
                             buftypes = { "terminal", "nofile" },
                         },
                     })
-                    vim.notify("Indent guides: enabled")
+                    vim.notify("Indent guides: enabled", vim.log.levels.INFO)
                 else
                     ibl.setup({ enabled = false })
-                    vim.notify("Indent guides: disabled")
+                    vim.notify("Indent guides: disabled", vim.log.levels.INFO)
                 end
             end,
             desc = "Utils: Toggle indent guides",
