@@ -7,7 +7,7 @@ mkdir -p data_zellij
 echo "Installing Zellij..."
 
 # Download the latest musl-based prebuilt binary
-curl -L --progress-bar https://github.com/zellij-org/zellij/releases/download/v0.39.2/zellij-x86_64-unknown-linux-musl.tar.gz \
+curl -L --progress-bar https://github.com/zellij-org/zellij/releases/download/v0.42.2/zellij-x86_64-unknown-linux-musl.tar.gz \
     | tar xz -C data_zellij
 
 # Link binary to ~/bin

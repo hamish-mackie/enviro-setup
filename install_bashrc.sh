@@ -29,6 +29,11 @@ else
     echo "Loader block already present – skipped"
 fi
 
+mkdir -p ~/.config
+mkdir -p ~/.config/lazygit/
+mkdir -p ~/.config/zellij/
+
 # 2) Other dotfiles
 ln -sf "$PWD/configs/tmux/.tmux.conf" ~/.tmux.conf
-
+ln -sf "$PWD/configs/lazygit/config.yml" ~/.config/lazygit/config.yml
+ln -sf "$PWD/configs/zellij/config.kdl" ~/.config/zellij/config.kdl

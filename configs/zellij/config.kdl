@@ -95,17 +95,9 @@ keybinds clear-defaults=true {
   }
 }
 
-theme "default" {}
+pane_frames false
+keybinds_hint false
+scroll_buffer_lines 10000
 
-layout "default" {}
-
-session {
-  attach_to_existing true
-}
-
-ui {
-  pane_frames true
-  pane_frame_style "rounded"
-  scroll_buffer_lines 10000
-}
+theme "nord" {}
 
