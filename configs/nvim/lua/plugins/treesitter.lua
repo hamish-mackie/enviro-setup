@@ -7,7 +7,6 @@ return {
             "nvim-treesitter/nvim-treesitter-textobjects",
             "nvim-treesitter/playground",
             "windwp/nvim-ts-autotag",
-            "HiPhish/rainbow-delimiters.nvim",
             "windwp/nvim-autopairs",
         },
         opts = {

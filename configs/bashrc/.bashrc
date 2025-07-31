@@ -119,5 +119,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-echo "tmux sessions:"
-tmux list-session
+if [[ $- == *i* ]] && command -v zellij &>/dev/null; then
+    echo -e "\n\033[1;34mZellij Sessions:\033[0m"
+    zellij list-sessions
+    echo
+fi
