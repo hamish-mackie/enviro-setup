@@ -95,6 +95,9 @@ keybinds clear-defaults=true {
   }
 }
 
+copy_on_select false
+osc52 true
+
 pane_frames false
 keybinds_hint false
 scroll_buffer_lines 10000
