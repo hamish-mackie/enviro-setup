@@ -101,26 +101,6 @@ end, { desc = "[T]oggle Inlay [H]ints" })
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "toggle NvimTree" })
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "focus NvimTree" })
 
-
--- Visual mode copy
-map("v", "<leader>uy", '"+y', { desc = "Utils: Copy selection to system clipboard" })
-
--- Normal mode copy
-map("n", "<leader>uyy", '"+yy', { desc = "Utils: Copy current line to system clipboard" })
-map("n", "<leader>uy", '"+y', { desc = "Utils: Copy motion to system clipboard" }) -- e.g. <leader>uyw
-map("n", "<leader>uY", '"+yg_', { desc = "Utils: Copy to end of line to system clipboard" })
-
--- Paste from system clipboard
-map("n", "<leader>up", '"+p', { desc = "Utils: Paste after cursor from system clipboard" })
-map("n", "<leader>uP", '"+P', { desc = "Utils: Paste before cursor from system clipboard" })
-map("v", "<leader>up", '"+p', { desc = "Utils: Paste after selection from system clipboard" })
-map("v", "<leader>uP", '"+P', { desc = "Utils: Paste before selection from system clipboard" })
-
--- OSC52 copy support
-map("n", "<leader>uc", function()
-    require("osc53").copy_register('"')
-end, { desc = "Utils: Copy using OSC53 to system clipboard" })
-
 -- barbar tabs
 map("n", "<Tab>", ":BufferNext<CR>", opts)
 map("n", "<S-Tab>", ":BufferPrevious<CR>", opts)
