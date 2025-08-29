@@ -1,9 +1,33 @@
-sudo apt install build-essential
+#!/usr/bin/env bash
+set -eu
 
-./install_unzip.sh
+# run bashrc setup first
 ./install_bashrc.sh
+
+# install Rust (cargo/rustup)
+./install_cargo.sh
+source ~/.bashrc
+
+# set default toolchain
+rustup default stable
+
+# run other installers (order flexible, but neovim last)
+./install_unzip.sh
 ./install_zellij.sh
 ./install_node.sh
-source ~/.bashrc
+./install_fd_find.sh
 ./install_ripgrep.sh
+./install_btop.sh
+./install_lazy_git.sh
+
+# install Ruff
+./install_ruff.sh
+
+# install jinja-lsp with cargo
+cargo install jinja-lsp
+
+# finally, install Neovim
 ./install_neovim.sh
+
+echo "All tools installed."
+
