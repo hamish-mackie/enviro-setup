@@ -1,63 +1,49 @@
 return {
-    "saghen/blink.cmp",
-    build = 'cargo +nightly build --release',
-    event = "InsertEnter",
-    dependencies = {
-        "L3MON4D3/LuaSnip",
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/nvim-cmp",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-emoji",
-        "hrsh7th/cmp-cmdline",
-        "hrsh7th/cmp-nvim-lsp-signature-help",
-        "onsails/lspkind.nvim",
-    },
-    config = function()
-        local blink_cmp = require("blink.cmp")
-
-        blink_cmp.setup({
-            keymap = { preset = "super-tab" },
-            completion = {
-                documentation = { auto_show = true },
-                ghost_text = { enabled = false },
-            },
-            appearance = {
-                nerd_font_variant = "mono",
-            },
-            snippets = {
-                preset = "luasnip",
-            },
-            fuzzy = {
-                implementation = "prefer_rust_with_warning",
-                sorts = {
-                    -- prioritize LSP
-                    function(a, b)
-                        if a.source_id == "lsp" and b.source_id ~= "lsp" then return true end
-                        if b.source_id == "lsp" and a.source_id ~= "lsp" then return false end
-                    end,
-                    "score",
-                    "sort_text",
-                },
-            },
-            sources = {
-                default = { "lsp", "path", "snippets", "buffer" },
-                per_filetype = {
-                    python    = { inherit_defaults = true, "lsp", "path", "snippets", "buffer" },
-                    gitcommit = { "buffer" },
-                },
-            },
-
-            cmdline = {
-                enabled = true,
-                keymap = { preset = "inherit" },
-                completion = {
-                    menu = { auto_show = true, },
-                    ghost_text = { enabled = true },
-                },
-            },
-        })
-    end,
+  "saghen/blink.cmp",
+  version = "*",            -- pin to a tag for prebuilt matcher
+  event = "InsertEnter",
+  -- build = "cargo +nightly build --release", -- only if building from main
+  dependencies = {
+    "L3MON4D3/LuaSnip",
+    -- "rafamadriz/friendly-snippets",
+    -- "folke/lazydev.nvim",         -- Lua API docs/completion (optional)
+    -- "moyiz/blink-emoji.nvim",     -- emoji source for blink (optional)
+  },
+  config = function()
+    require("blink.cmp").setup({
+      keymap = { preset = "super-tab" },
+      appearance = { nerd_font_variant = "mono" },
+      completion = {
+        documentation = { auto_show = true, auto_show_delay_ms = 150 },
+        ghost_text = { enabled = false },
+        accept = { auto_brackets = { enabled = true } },        -- optional
+        menu = { draw = { treesitter = { "lsp" } } },           -- optional
+      },
+      signature = { enabled = true },                           -- optional
+      snippets = { preset = "luasnip" },
+      fuzzy = {
+        implementation = "prefer_rust_with_warning",
+        sorts = { "exact", "score", "sort_text" },
+      },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+        providers = {
+          lsp = { score_offset = 5 },
+          snippets = { score_offset = -3 },
+          -- emoji = { module = "blink-emoji", name = "Emoji", score_offset = -4 },
+        },
+        per_filetype = {
+          python = { inherit_defaults = true },
+          cpp    = { inherit_defaults = true },
+          gitcommit = { "buffer" },
+        },
+      },
+      cmdline = {
+        enabled = true,
+        keymap = { preset = "inherit" },
+        completion = { menu = { auto_show = true }, ghost_text = { enabled = true } },
+      },
+    })
+  end,
 }
+
