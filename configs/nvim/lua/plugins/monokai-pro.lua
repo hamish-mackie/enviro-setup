@@ -7,16 +7,19 @@ return {
             -- Choose one of: "classic", "octagon", "pro", "machine", "ristretto", "spectrum"
             filter = "pro",
             transparent_background = false, -- Set to true if you want no background in your editor
-            terminal_colors = true, -- Use terminal colors
-            devicons = true,       -- Enable file type icons (if supported by your plugin setup)
+            terminal_colors = true,         -- Use terminal colors
+            devicons = true,                -- Enable file type icons (if supported by your plugin setup)
 
             -- Customize styles for specific syntax groups
             styles = {
-                comment = { italic = true },
+                comment = { italic = false },
                 keyword = { italic = true },
-                functions = {},
-                variables = {},
-                types = { italic = false },
+                type = {},
+                storageclass = {},
+                structure = {},
+                parameter = {},
+                annotation = {},
+                tag_attribute = { italic = true },
             },
 
             -- Optionally override specific highlight groups
