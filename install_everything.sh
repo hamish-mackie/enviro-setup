@@ -8,9 +8,6 @@ set -eu
 ./install_cargo.sh
 source ~/.bashrc
 
-# set default toolchain
-rustup default stable
-
 # run other installers (order flexible, but neovim last)
 ./install_unzip.sh
 ./install_zellij.sh

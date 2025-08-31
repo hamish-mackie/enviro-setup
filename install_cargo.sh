@@ -1,32 +1,43 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# 1. Setup target dirs
-mkdir -p ~/bin
-mkdir -p data_cargo/cargo
-mkdir -p data_cargo/rustup
+# Standard locations
+export CARGO_HOME="${CARGO_HOME:-$HOME/.cargo}"
+export RUSTUP_HOME="${RUSTUP_HOME:-$HOME/.rustup}"
+export PATH="$CARGO_HOME/bin:$PATH"
 
-export CARGO_HOME="$PWD/data_cargo/cargo"
-export RUSTUP_HOME="$PWD/data_cargo/rustup"
+# Ensure dirs
+mkdir -p "$CARGO_HOME" "$RUSTUP_HOME"
 
-echo "Installing cargo via rustup-init into data_cargo…"
+# Persist to ~/.bashrc (idempotent)
+grep -q 'CARGO_HOME=' ~/.bashrc || {
+  {
+    echo 'export CARGO_HOME="$HOME/.cargo"'
+    echo 'export RUSTUP_HOME="$HOME/.rustup"'
+    echo 'export PATH="$CARGO_HOME/bin:$PATH"'
+  } >> ~/.bashrc
+}
 
-# 2. Download rustup-init
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o data_cargo/rustup-init.sh
-chmod +x data_cargo/rustup-init.sh
+# Remove old shims
+rm -f ~/bin/cargo ~/bin/rustc ~/bin/rustup || true
 
-# 3. Install minimal Rust toolchain
-./data_cargo/rustup-init.sh -y --no-modify-path --profile minimal
+# Install rustup and minimal toolchain
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
+source "$CARGO_HOME/env"
 
-# 4. Symlink cargo and rustc
-ln -sf "$CARGO_HOME/bin/cargo" ~/bin/cargo
-ln -sf "$CARGO_HOME/bin/rustc" ~/bin/rustc
-ln -sf "$CARGO_HOME/bin/rustup" ~/bin/rustup
+# Toolchains
+rustup update
+rustup default stable
+rustup toolchain install nightly
+rustup component add rustfmt --toolchain nightly
 
-# 5. Ensure ~/bin is in PATH
-./helper_add_to_path.sh
+# Verify
+hash -r
+which rustup
+rustup show
+cargo -V
+rustc -V
+rustup run nightly rustc -V
 
-# 6. Set default toolchain to stable
-"$CARGO_HOME/bin/rustup" default stable
+echo "Rust installed in $CARGO_HOME and $RUSTUP_HOME"
 
-echo "Cargo installed to ~/bin/cargo, default toolchain set to stable."

@@ -1,6 +1,6 @@
 return {
     "saghen/blink.cmp",
-    build = 'cargo build --release',
+    build = 'cargo +nightly build --release',
     event = "InsertEnter",
     dependencies = {
         "L3MON4D3/LuaSnip",
@@ -17,7 +17,6 @@ return {
     },
     config = function()
         local blink_cmp = require("blink.cmp")
-        local lspkind = require("lspkind")
 
         blink_cmp.setup({
             keymap = { preset = "super-tab" },
