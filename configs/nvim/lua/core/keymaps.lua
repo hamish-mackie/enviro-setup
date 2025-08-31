@@ -131,3 +131,29 @@ end, { desc = "Toggle line comment (visual)" })
 map("v", "<leader>*", function()
     require("Comment.api").toggle.blockwise(vim.fn.visualmode())
 end, { desc = "Toggle block comment (visual)" })
+
+
+local wk = require("which-key")
+
+wk.add({
+  -- Textobjects (operator-pending + visual)
+  { "a",  group = "[a]round", mode = { "o", "x" } },
+  { "i",  group = "[i]nside", mode = { "o", "x" } },
+  { "af", desc  = "[f]unction outer",    mode = { "o", "x" } },
+  { "if", desc  = "[f]unction inner",    mode = { "o", "x" } },
+  { "ac", desc  = "[c]lass outer",       mode = { "o", "x" } },
+  { "ic", desc  = "[c]lass inner",       mode = { "o", "x" } },
+  { "al", desc  = "[l]oop outer",        mode = { "o", "x" } },
+  { "il", desc  = "[l]oop inner",        mode = { "o", "x" } },
+  { "aC", desc  = "[C]onditional outer", mode = { "o", "x" } },
+  { "iC", desc  = "[C]onditional inner", mode = { "o", "x" } },
+
+  -- Motions (normal)
+  { "]",  group = "Next", mode = "n" },
+  { "[",  group = "Prev", mode = "n" },
+  { "]m", desc  = "Next function start", mode = "n" },
+  { "]]", desc  = "Next class start",    mode = "n" },
+  { "[m", desc  = "Prev function start", mode = "n" },
+  { "[[", desc  = "Prev class start",    mode = "n" },
+})
+
