@@ -3,7 +3,6 @@ local plugins = {
     require("plugins.conform"),
     require("plugins.nvim-tree"),
     require("plugins.telescope"),
-    require("plugins.lsp"),
     require("plugins.treesitter"),
     require("plugins.mason"),
     require("plugins.cmake-tools"),
