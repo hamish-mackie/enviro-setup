@@ -16,29 +16,24 @@ map("n", "<leader>sW", builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orksp
 map("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 
 map("n", "<leader>/", function()
-    builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-        winblend = 10,
-        previewer = false,
-    }))
+	builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+		winblend = 10,
+		previewer = false,
+	}))
 end, { desc = "[/] Fuzzily search in current buffer" })
 
 map("n", "<leader>s/", function()
-    builtin.live_grep({
-        grep_open_files = true,
-        prompt_title = "Live Grep in Open Files",
-    })
+	builtin.live_grep({
+		grep_open_files = true,
+		prompt_title = "Live Grep in Open Files",
+	})
 end, { desc = "[S]earch [/] in Open Files" })
 
 map("n", "<leader>sn", function()
-    builtin.find_files({ cwd = vim.fn.stdpath("config") })
+	builtin.find_files({ cwd = vim.fn.stdpath("config") })
 end, { desc = "[S]earch [N]eovim files" })
 
-map(
-    "n",
-    "<leader>gsf",
-    builtin.git_files,
-    { desc = "[G]it [S]earch [F]iles" }
-)
+map("n", "<leader>gsf", builtin.git_files, { desc = "[G]it [S]earch [F]iles" })
 map("n", "<leader>gsc", builtin.git_commits, { desc = "[G]it [S]earch [C]ommits" })
 map("n", "<leader>gsb", builtin.git_branches, { desc = "[G]it [S]earch [B]ranches" })
 map("n", "<leader>gss", builtin.git_status, { desc = "[G]it [S]earch [S]tatus" })
@@ -63,7 +58,7 @@ map("n", "<leader>urn", "<cmd>set rnu!<CR>", { desc = "toggle relative number" }
 
 -- Formatting
 map("n", "<leader>fm", function()
-    require("conform").format({ lsp_fallback = true })
+	require("conform").format({ lsp_fallback = true })
 end, { desc = "format file" })
 
 -- Definitions & Declarations
@@ -82,14 +77,14 @@ map({ "n", "x" }, "gra", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 map({ "i", "s" }, "<C-s>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
 
 map("n", "<leader>q", vim.diagnostic.setloclist, {
-    noremap = true,
-    silent = true,
-    desc = "Open diagnostic [Q]uickfix list"
+	noremap = true,
+	silent = true,
+	desc = "Open diagnostic [Q]uickfix list",
 })
 
 -- Toggle Inlay Hints
 map("n", "<leader>th", function()
-    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
 end, { desc = "[T]oggle Inlay [H]ints" })
 
 -- NvimTree
@@ -114,50 +109,48 @@ map("n", "<leader>bs-", ":split<CR>", { desc = "[B]uffer [S]plit [H]orizontal -"
 
 -- Toggle line comment (normal mode)
 map("n", "<leader>/", function()
-    require("Comment.api").toggle.linewise.current()
+	require("Comment.api").toggle.linewise.current()
 end, { desc = "Toggle line comment" })
 
 -- Toggle block comment (normal mode)
 map("n", "<leader>*", function()
-    require("Comment.api").toggle.blockwise.current()
+	require("Comment.api").toggle.blockwise.current()
 end, { desc = "Toggle block comment" })
 
 -- Toggle line comment in visual mode
 map("v", "<leader>/", function()
-    require("Comment.api").toggle.linewise(vim.fn.visualmode())
+	require("Comment.api").toggle.linewise(vim.fn.visualmode())
 end, { desc = "Toggle line comment (visual)" })
 
 -- Toggle block comment in visual mode
 map("v", "<leader>*", function()
-    require("Comment.api").toggle.blockwise(vim.fn.visualmode())
+	require("Comment.api").toggle.blockwise(vim.fn.visualmode())
 end, { desc = "Toggle block comment (visual)" })
-
 
 local wk = require("which-key")
 
 wk.add({
-  -- Textobjects (operator-pending + visual)
-  { "a",  group = "[a]round", mode = { "o", "x" } },
-  { "i",  group = "[i]nside", mode = { "o", "x" } },
-  { "af", desc  = "[f]unction outer",    mode = { "o", "x" } },
-  { "if", desc  = "[f]unction inner",    mode = { "o", "x" } },
-  { "ac", desc  = "[c]lass outer",       mode = { "o", "x" } },
-  { "ic", desc  = "[c]lass inner",       mode = { "o", "x" } },
-  { "al", desc  = "[l]oop outer",        mode = { "o", "x" } },
-  { "il", desc  = "[l]oop inner",        mode = { "o", "x" } },
-  { "aC", desc  = "[C]onditional outer", mode = { "o", "x" } },
-  { "iC", desc  = "[C]onditional inner", mode = { "o", "x" } },
+	-- Textobjects (operator-pending + visual)
+	{ "a", group = "[a]round", mode = { "o", "x" } },
+	{ "i", group = "[i]nside", mode = { "o", "x" } },
+	{ "af", desc = "[f]unction outer", mode = { "o", "x" } },
+	{ "if", desc = "[f]unction inner", mode = { "o", "x" } },
+	{ "ac", desc = "[c]lass outer", mode = { "o", "x" } },
+	{ "ic", desc = "[c]lass inner", mode = { "o", "x" } },
+	{ "al", desc = "[l]oop outer", mode = { "o", "x" } },
+	{ "il", desc = "[l]oop inner", mode = { "o", "x" } },
+	{ "aC", desc = "[C]onditional outer", mode = { "o", "x" } },
+	{ "iC", desc = "[C]onditional inner", mode = { "o", "x" } },
 
-  -- Motions (normal)
-  { "]",  group = "Next", mode = "n" },
-  { "[",  group = "Prev", mode = "n" },
-  { "]m", desc  = "Next function start", mode = "n" },
-  { "]]", desc  = "Next class start",    mode = "n" },
-  { "[m", desc  = "Prev function start", mode = "n" },
-  { "[[", desc  = "Prev class start",    mode = "n" },
+	-- Motions (normal)
+	{ "]", group = "Next", mode = "n" },
+	{ "[", group = "Prev", mode = "n" },
+	{ "]m", desc = "Next function start", mode = "n" },
+	{ "]]", desc = "Next class start", mode = "n" },
+	{ "[m", desc = "Prev function start", mode = "n" },
+	{ "[[", desc = "Prev class start", mode = "n" },
 })
 
-  -- Visual mode mappings
-vim.keymap.set("x","<Tab>",">gv")
-vim.keymap.set("x","<S-Tab>","<gv")
-
+-- Visual mode mappings
+vim.keymap.set("x", "<Tab>", ">gv")
+vim.keymap.set("x", "<S-Tab>", "<gv")

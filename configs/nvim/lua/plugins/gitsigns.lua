@@ -1,9 +1,8 @@
 local has_git = vim.fn.executable("git") == 1
 
-return
-{
-    "lewis6991/gitsigns.nvim",
-    cond = has_git,
+return {
+	"lewis6991/gitsigns.nvim",
+	cond = has_git,
     -- stylua: ignore
     keys = {
         { ']g',           ']h',                                                               desc = 'Next Hunk',                  remap = true },
