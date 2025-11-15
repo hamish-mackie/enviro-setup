@@ -1,42 +1,74 @@
-local builtin = require("telescope.builtin")
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-map("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-map("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-map("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
-map("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
-map("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-map("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
-map("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
-map("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
-map("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-map("n", "<leader>sW", builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
+local P = Snacks.picker
 
-map("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+-- Snacks-based search keymaps
+map("n", "<leader>sh", function()
+	P.help()
+end, { desc = "[S]earch [H]elp" })
+map("n", "<leader>sk", function()
+	P.keymaps()
+end, { desc = "[S]earch [K]eymaps" })
+map("n", "<leader>sf", function()
+	P.files()
+end, { desc = "[S]earch [F]iles" })
+map("n", "<leader>ss", function()
+	P.builtin()
+end, { desc = "[S]earch [S]elect Picker" })
+map("n", "<leader>sw", function()
+	P.grep_word()
+end, { desc = "[S]earch current [W]ord" })
+map("n", "<leader>sg", function()
+	P.grep()
+end, { desc = "[S]earch by [G]rep" })
+map("n", "<leader>sd", function()
+	P.diagnostics()
+end, { desc = "[S]earch [D]iagnostics" })
+map("n", "<leader>sr", function()
+	P.resume()
+end, { desc = "[S]earch [R]esume" })
+map("n", "<leader>s.", function()
+	P.recent()
+end, { desc = "[S]earch Recent Files" })
+map("n", "<leader>sW", function()
+	P.lsp_workspace_symbols()
+end, { desc = "[W]orkspace [S]ymbols" })
+
+map("n", "<leader><leader>", function()
+	P.buffers()
+end, { desc = "Find existing buffers" })
 
 map("n", "<leader>/", function()
-	builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-		winblend = 10,
-		previewer = false,
-	}))
-end, { desc = "[/] Fuzzily search in current buffer" })
+	P.buffer({
+		preview = false,
+	})
+end, { desc = "Fuzzy search in current buffer" })
 
 map("n", "<leader>s/", function()
-	builtin.live_grep({
-		grep_open_files = true,
-		prompt_title = "Live Grep in Open Files",
+	P.grep({
+		open_files = true,
+		title = "Live Grep in Open Files",
 	})
 end, { desc = "[S]earch [/] in Open Files" })
 
 map("n", "<leader>sn", function()
-	builtin.find_files({ cwd = vim.fn.stdpath("config") })
+	P.files({ cwd = vim.fn.stdpath("config") })
 end, { desc = "[S]earch [N]eovim files" })
 
-map("n", "<leader>gsf", builtin.git_files, { desc = "[G]it [S]earch [F]iles" })
-map("n", "<leader>gsc", builtin.git_commits, { desc = "[G]it [S]earch [C]ommits" })
-map("n", "<leader>gsb", builtin.git_branches, { desc = "[G]it [S]earch [B]ranches" })
-map("n", "<leader>gss", builtin.git_status, { desc = "[G]it [S]earch [S]tatus" })
+-- Git pickers
+map("n", "<leader>gsf", function()
+	P.git_files()
+end, { desc = "[G]it [S]earch [F]iles" })
+map("n", "<leader>gsc", function()
+	P.git_log()
+end, { desc = "[G]it [S]earch [C]ommits" })
+map("n", "<leader>gsb", function()
+	P.git_branches()
+end, { desc = "[G]it [S]earch [B]ranches" })
+map("n", "<leader>gss", function()
+	P.git_status()
+end, { desc = "[G]it [S]earch [S]tatus" })
 
 -- Insert-mode cursor movements
 map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line" })
@@ -62,17 +94,27 @@ map("n", "<leader>fm", function()
 end, { desc = "format file" })
 
 -- Definitions & Declarations
-map("n", "gd", builtin.lsp_definitions, { desc = "[G]oto [D]efinition" })
+map("n", "gd", function()
+	P.lsp_definitions()
+end, { desc = "[G]oto [D]efinition" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
 
 -- Type Definition
-map("n", "<leader>D", builtin.lsp_type_definitions, { desc = "Type [D]efinition" })
+map("n", "<leader>D", function()
+	P.lsp_type_definitions()
+end, { desc = "Type [D]efinition" })
 
 -- References, Implementations, Rename & Document Symbols
-map("n", "grr", builtin.lsp_references, { desc = "[G]oto [R]eferences" })
-map("n", "gri", builtin.lsp_implementations, { desc = "[G]oto [I]mplementation" })
+map("n", "grr", function()
+	P.lsp_references()
+end, { desc = "[G]oto [R]eferences" })
+map("n", "gri", function()
+	P.lsp_implementations()
+end, { desc = "[G]oto [I]mplementation" })
 map("n", "grn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
-map("n", "gO", vim.lsp.buf.document_symbol, { desc = "[D]ocument [S]ymbols" })
+map("n", "gO", function()
+	P.lsp_document_symbols()
+end, { desc = "[D]ocument [S]ymbols" })
 map({ "n", "x" }, "gra", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 map({ "i", "s" }, "<C-s>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
 
@@ -94,7 +136,7 @@ map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "focus NvimTree" })
 -- barbar tabs
 map("n", "<Tab>", ":BufferNext<CR>", opts)
 map("n", "<S-Tab>", ":BufferPrevious<CR>", opts)
-map("n", "<leader>tc", ":BufferClose<CR>", { desc = "[T]ab [C]lose" }, opts)
+map("n", "<leader>tc", ":BufferClose<CR>", { desc = "[T]ab [C]lose" })
 
 -- Buffers
 map("n", "<leader>be", ":enew<CR>", { desc = "[B]uffer [E]new" })
@@ -107,30 +149,28 @@ map("n", "<leader>bp", ":bprev<CR>", { desc = "[B]uffer [P]revious" })
 map("n", "<leader>bs|", ":vsplit<CR>", { desc = "[B]uffer [S]plit [V]ertical |" })
 map("n", "<leader>bs-", ":split<CR>", { desc = "[B]uffer [S]plit [H]orizontal -" })
 
--- Toggle line comment (normal mode)
+-- Comments
 map("n", "<leader>/", function()
 	require("Comment.api").toggle.linewise.current()
 end, { desc = "Toggle line comment" })
 
--- Toggle block comment (normal mode)
 map("n", "<leader>*", function()
 	require("Comment.api").toggle.blockwise.current()
 end, { desc = "Toggle block comment" })
 
--- Toggle line comment in visual mode
 map("v", "<leader>/", function()
 	require("Comment.api").toggle.linewise(vim.fn.visualmode())
 end, { desc = "Toggle line comment (visual)" })
 
--- Toggle block comment in visual mode
 map("v", "<leader>*", function()
 	require("Comment.api").toggle.blockwise(vim.fn.visualmode())
 end, { desc = "Toggle block comment (visual)" })
 
+-- which-key groups
 local wk = require("which-key")
 
 wk.add({
-	-- Textobjects (operator-pending + visual)
+	-- Textobjects
 	{ "a", group = "[a]round", mode = { "o", "x" } },
 	{ "i", group = "[i]nside", mode = { "o", "x" } },
 	{ "af", desc = "[f]unction outer", mode = { "o", "x" } },
@@ -142,7 +182,7 @@ wk.add({
 	{ "aC", desc = "[C]onditional outer", mode = { "o", "x" } },
 	{ "iC", desc = "[C]onditional inner", mode = { "o", "x" } },
 
-	-- Motions (normal)
+	-- Motions
 	{ "]", group = "Next", mode = "n" },
 	{ "[", group = "Prev", mode = "n" },
 	{ "]m", desc = "Next function start", mode = "n" },
@@ -151,6 +191,6 @@ wk.add({
 	{ "[[", desc = "Prev class start", mode = "n" },
 })
 
--- Visual mode mappings
+-- Visual mode indent reselect
 vim.keymap.set("x", "<Tab>", ">gv")
 vim.keymap.set("x", "<S-Tab>", "<gv")
