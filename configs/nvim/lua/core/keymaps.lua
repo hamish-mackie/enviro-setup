@@ -157,3 +157,7 @@ wk.add({
   { "[[", desc  = "Prev class start",    mode = "n" },
 })
 
+  -- Visual mode mappings
+vim.keymap.set("x","<Tab>",">gv")
+vim.keymap.set("x","<S-Tab>","<gv")
+
