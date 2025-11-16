@@ -25,12 +25,7 @@ vim.lsp.config("clangd", {
 	filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "h", "hpp" },
 	cmd = {
 		clangd_cmd,
-		"--clang-tidy",
-		"--completion-style=detailed",
-		"--header-insertion=iwyu",
-		"--clang-tidy-checks=-*,performance-*,modernize-*,readability-*,clang-analyzer-*",
-		"--limit-results=500",
-		"--cross-file-rename",
+		"--background-index=false",
 	},
 	root_dir = root_dir,
 })

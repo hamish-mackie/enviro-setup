@@ -95,6 +95,7 @@ return {
 		},
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)
+			vim.treesitter.language.resgister("xml", "jinja")
 			local npairs = require("nvim-autopairs")
 			npairs.setup({
 				check_ts = true, -- use Treesitter to avoid pairing in strings/comments
