@@ -97,3 +97,6 @@ alias zells="zellij list-sessions"
 alias nt='ninja -t targets'
 # Search ninja targets
 alias nts='ninja -t targets | rg'
+
+# Format Cpp
+alias format_cpp='find . \( -name "*.cpp" -o -name "*.h" \) -print0 | xargs -0 clang-format -i'
