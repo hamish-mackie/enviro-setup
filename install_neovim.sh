@@ -1,18 +1,22 @@
-mkdir -p ~/bin
+#!/usr/bin/env bash
+set -euo pipefail
 
-mkdir -p data_neovim
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+mkdir -p "$SCRIPT_DIR/data_neovim"
+mkdir -p "$HOME/.local/bin"
+mkdir -p "$HOME/.config"
 
 echo "installing neovim"
-curl -L --progress-bar https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz | tar xz -C data_neovim --strip-components=1
+curl -L --progress-bar https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz \
+  | tar xz -C "$SCRIPT_DIR/data_neovim" --strip-components=1
 
-ln -sf $PWD/data_neovim/bin/nvim ~/bin/nvim 
+ln -sf "$SCRIPT_DIR/data_neovim/bin/nvim" "$HOME/.local/bin/nvim"
+ln -sfn "$SCRIPT_DIR/dotfiles/nvim" "$HOME/.config/nvim"
 
-./helper_add_to_path.sh
-
-ln -sfnT $PWD/configs/nvim $HOME/.config/nvim
-source ~/.bashrc
+source "$HOME/.bashrc"
 
 nvim
 
-echo "install hack nerd font: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Hack.zip"
-echo "instal jet brains nerd font: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip"
+echo "install Hack Nerd Font: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Hack.zip"
+echo "install JetBrainsMono Nerd Font: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/JetBrainsMono.zip"
