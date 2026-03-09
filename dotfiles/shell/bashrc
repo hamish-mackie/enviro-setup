@@ -42,7 +42,7 @@ HISTFILESIZE=5000
 shopt -s checkwinsize
 
 # Disable the bell
-if [[ $iatest > 0 ]]; then bind "set bell-style visible"; fi
+bind "set bell-style none"
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
@@ -121,10 +121,4 @@ if ! shopt -oq posix; then
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
-fi
-
-if [[ $- == *i* ]] && command -v zellij &>/dev/null; then
-    echo -e "\n\033[1;34mZellij Sessions:\033[0m"
-    zellij list-sessions
-    echo
 fi
