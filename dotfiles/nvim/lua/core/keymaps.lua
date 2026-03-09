@@ -194,3 +194,26 @@ wk.add({
 -- Visual mode indent reselect
 vim.keymap.set("x", "<Tab>", ">gv")
 vim.keymap.set("x", "<S-Tab>", "<gv")
+
+-- yank
+map("n", "<leader>yl", function()
+	local file = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+	local line = vim.fn.line(".")
+	local text = file .. ":" .. line
+	vim.fn.setreg("+", text)
+	print("Yanked " .. text)
+end, { desc = "[Y]ank File:[L]ine" })
+
+map("v", "<leader>yr", function()
+	local file = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+	local start_line = vim.fn.line("v")
+	local end_line = vim.fn.line(".")
+
+	if start_line > end_line then
+		start_line, end_line = end_line, start_line
+	end
+
+	local text = file .. ":" .. start_line .. "-" .. end_line
+	vim.fn.setreg("+", text)
+	print("Yanked " .. text)
+end, { desc = "[Y]ank [R]ange File:Lines" })

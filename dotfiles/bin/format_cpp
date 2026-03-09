@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+MODE=${1:-}
+
+if [[ "$MODE" == "all" ]]; then
+    echo "Formatting all C++ files..."
+
+    find . \
+        \( -name "*.cpp" -o -name "*.cc" -o -name "*.cxx" \
+           -o -name "*.hpp" -o -name "*.hh" -o -name "*.h" \) \
+        -print0 | xargs -0 clang-format -i
+
+elif [[ "$MODE" == "changed" ]]; then
+    echo "Formatting changed/staged C++ files..."
+
+    FILES=$(git diff --name-only --diff-filter=ACM \
+        | grep -E '\.(cpp|cc|cxx|hpp|hh|h)$' || true)
+
+    STAGED=$(git diff --name-only --cached --diff-filter=ACM \
+        | grep -E '\.(cpp|cc|cxx|hpp|hh|h)$' || true)
+
+    FILES=$(printf "%s\n%s\n" "$FILES" "$STAGED" | sort -u)
+
+    if [[ -z "$FILES" ]]; then
+        echo "No changed C++ files"
+        exit 0
+    fi
+
+    echo "$FILES" | while read -r f; do
+        clang-format -i "$f"
+
+        # optional tidy pass
+        clang-tidy "$f" -p build --fix || true
+    done
+
+else
+    echo "Usage: format_cpp.sh [all|changed]"
+    exit 1
+fi
