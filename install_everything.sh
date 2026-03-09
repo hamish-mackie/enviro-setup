@@ -2,7 +2,7 @@
 set -eu
 
 # run bashrc setup first
-./install_bashrc.sh
+./dotfiles/install.sh
 
 # install Rust (cargo/rustup)
 ./install_cargo.sh
