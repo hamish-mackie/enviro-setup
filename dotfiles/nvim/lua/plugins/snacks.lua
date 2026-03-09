@@ -3,9 +3,19 @@ return {
 	priority = 1000,
 	---@type snacks.Config
 	opts = {
-		picker = { enabled = true, matcher = {
-			frecency = true,
-		} },
+		picker = {
+			enabled = true,
+			matcher = {
+				frecency = true,
+			},
+			sources = {
+				files = {
+					hidden = true,
+					ignored = true,
+					follow = true,
+				},
+			},
+		},
 	},
 	config = function(_, opts)
 		require("snacks").setup(opts)

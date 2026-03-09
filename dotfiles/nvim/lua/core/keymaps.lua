@@ -1,74 +1,59 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-local P = Snacks.picker
+local function sp(method, picker_opts)
+	return function()
+		require("snacks").picker[method](picker_opts or {})
+	end
+end
 
 -- Snacks-based search keymaps
-map("n", "<leader>sh", function()
-	P.help()
-end, { desc = "[S]earch [H]elp" })
-map("n", "<leader>sk", function()
-	P.keymaps()
-end, { desc = "[S]earch [K]eymaps" })
-map("n", "<leader>sf", function()
-	P.files()
-end, { desc = "[S]earch [F]iles" })
-map("n", "<leader>ss", function()
-	P.builtin()
-end, { desc = "[S]earch [S]elect Picker" })
-map("n", "<leader>sw", function()
-	P.grep_word()
-end, { desc = "[S]earch current [W]ord" })
-map("n", "<leader>sg", function()
-	P.grep()
-end, { desc = "[S]earch by [G]rep" })
-map("n", "<leader>sd", function()
-	P.diagnostics()
-end, { desc = "[S]earch [D]iagnostics" })
-map("n", "<leader>sr", function()
-	P.resume()
-end, { desc = "[S]earch [R]esume" })
-map("n", "<leader>s.", function()
-	P.recent()
-end, { desc = "[S]earch Recent Files" })
-map("n", "<leader>sW", function()
-	P.lsp_workspace_symbols()
-end, { desc = "[W]orkspace [S]ymbols" })
+map(
+	"n",
+	"<leader>sf",
+	sp("files", {
+		hidden = true,
+		ignored = true,
+		follow = true,
+	}),
+	{ desc = "[S]earch [F]iles" }
+)
 
-map("n", "<leader><leader>", function()
-	P.buffers()
-end, { desc = "Find existing buffers" })
+map("n", "<leader>sh", sp("help"), { desc = "[S]earch [H]elp" })
+map("n", "<leader>sk", sp("keymaps"), { desc = "[S]earch [K]eymaps" })
+map("n", "<leader>ss", sp("builtin"), { desc = "[S]earch [S]elect Picker" })
+map("n", "<leader>sw", sp("grep_word"), { desc = "[S]earch current [W]ord" })
+map("n", "<leader>sg", sp("grep"), { desc = "[S]earch by [G]rep" })
+map("n", "<leader>sd", sp("diagnostics"), { desc = "[S]earch [D]iagnostics" })
+map("n", "<leader>sr", sp("resume"), { desc = "[S]earch [R]esume" })
+map("n", "<leader>s.", sp("recent"), { desc = "[S]earch Recent Files" })
+map("n", "<leader>sW", sp("lsp_workspace_symbols"), { desc = "[W]orkspace [S]ymbols" })
 
-map("n", "<leader>/", function()
-	P.buffer({
-		preview = false,
-	})
-end, { desc = "Fuzzy search in current buffer" })
-
-map("n", "<leader>s/", function()
-	P.grep({
+map("n", "<leader><leader>", sp("buffers"), { desc = "Find existing buffers" })
+map("n", "<leader>sb", sp("buffer", { preview = false }), { desc = "Fuzzy search in current buffer" })
+map(
+	"n",
+	"<leader>s/",
+	sp("grep", {
 		open_files = true,
 		title = "Live Grep in Open Files",
-	})
-end, { desc = "[S]earch [/] in Open Files" })
-
-map("n", "<leader>sn", function()
-	P.files({ cwd = vim.fn.stdpath("config") })
-end, { desc = "[S]earch [N]eovim files" })
+	}),
+	{ desc = "[S]earch [/] in Open Files" }
+)
+map(
+	"n",
+	"<leader>sn",
+	sp("files", {
+		cwd = vim.fn.stdpath("config"),
+	}),
+	{ desc = "[S]earch [N]eovim files" }
+)
 
 -- Git pickers
-map("n", "<leader>gsf", function()
-	P.git_files()
-end, { desc = "[G]it [S]earch [F]iles" })
-map("n", "<leader>gsc", function()
-	P.git_log()
-end, { desc = "[G]it [S]earch [C]ommits" })
-map("n", "<leader>gsb", function()
-	P.git_branches()
-end, { desc = "[G]it [S]earch [B]ranches" })
-map("n", "<leader>gss", function()
-	P.git_status()
-end, { desc = "[G]it [S]earch [S]tatus" })
+map("n", "<leader>gsf", sp("git_files"), { desc = "[G]it [S]earch [F]iles" })
+map("n", "<leader>gsc", sp("git_log"), { desc = "[G]it [S]earch [C]ommits" })
+map("n", "<leader>gsb", sp("git_branches"), { desc = "[G]it [S]earch [B]ranches" })
+map("n", "<leader>gss", sp("git_status"), { desc = "[G]it [S]earch [S]tatus" })
 
 -- Insert-mode cursor movements
 map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line" })
@@ -94,27 +79,18 @@ map("n", "<leader>fm", function()
 end, { desc = "format file" })
 
 -- Definitions & Declarations
-map("n", "gd", function()
-	P.lsp_definitions()
-end, { desc = "[G]oto [D]efinition" })
+map("n", "gd", sp("lsp_definitions"), { desc = "[G]oto [D]efinition" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
 
 -- Type Definition
-map("n", "<leader>D", function()
-	P.lsp_type_definitions()
-end, { desc = "Type [D]efinition" })
+map("n", "<leader>D", sp("lsp_type_definitions"), { desc = "Type [D]efinition" })
 
 -- References, Implementations, Rename & Document Symbols
-map("n", "grr", function()
-	P.lsp_references()
-end, { desc = "[G]oto [R]eferences" })
-map("n", "gri", function()
-	P.lsp_implementations()
-end, { desc = "[G]oto [I]mplementation" })
+map("n", "grr", sp("lsp_references"), { desc = "[G]oto [R]eferences" })
+map("n", "gri", sp("lsp_implementations"), { desc = "[G]oto [I]mplementation" })
 map("n", "grn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
-map("n", "gO", function()
-	require("snacks").picker.symbols()
-end, { desc = "Document Symbols" })
+map("n", "gO", sp("symbols"), { desc = "Document Symbols" })
+
 map({ "n", "x" }, "gra", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 map({ "i", "s" }, "<C-s>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
 
