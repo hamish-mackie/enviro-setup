@@ -193,3 +193,47 @@ map("v", "<leader>yr", function()
 	vim.fn.setreg("+", text)
 	print("Yanked " .. text)
 end, { desc = "[Y]ank [R]ange File:Lines" })
+
+-- gitsigns
+local gs = require("gitsigns")
+
+vim.keymap.set("n", "]h", function()
+	if vim.wo.diff then
+		vim.cmd.normal({ "]h", bang = true })
+	else
+		gs.nav_hunk("next")
+	end
+end, { desc = "Next Hunk" })
+
+vim.keymap.set("n", "[h", function()
+	if vim.wo.diff then
+		vim.cmd.normal({ "[h", bang = true })
+	else
+		gs.nav_hunk("prev")
+	end
+end, { desc = "Prev Hunk" })
+
+vim.keymap.set("n", "<leader>hs", gs.stage_hunk, { desc = "Stage Hunk" })
+vim.keymap.set("n", "<leader>hu", gs.undo_stage_hunk, { desc = "Undo Stage Hunk" })
+vim.keymap.set("n", "<leader>hr", gs.reset_hunk, { desc = "Reset Hunk" })
+vim.keymap.set("v", "<leader>hs", function()
+	gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+end, { desc = "Stage Hunk" })
+vim.keymap.set("v", "<leader>hr", function()
+	gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+end, { desc = "Reset Hunk" })
+
+vim.keymap.set("n", "<leader>hS", gs.stage_buffer, { desc = "Stage Buffer" })
+vim.keymap.set("n", "<leader>hR", gs.reset_buffer, { desc = "Reset Buffer" })
+
+vim.keymap.set("n", "<leader>hp", gs.preview_hunk, { desc = "Preview Hunk" })
+vim.keymap.set("n", "<leader>hb", function()
+	gs.blame_line({ full = true })
+end, { desc = "Blame Line" })
+
+vim.keymap.set("n", "<leader>hd", gs.diffthis, { desc = "Diff This" })
+vim.keymap.set("n", "<leader>hD", function()
+	gs.diffthis("~")
+end, { desc = "Diff This ~" })
+
+vim.keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select Hunk" })
