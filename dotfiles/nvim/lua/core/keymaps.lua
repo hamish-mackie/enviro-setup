@@ -172,6 +172,12 @@ vim.keymap.set("x", "<Tab>", ">gv")
 vim.keymap.set("x", "<S-Tab>", "<gv")
 
 -- yank
+map({ "n", "v" }, "<leader>yf", function()
+	local file = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+	vim.fn.setreg("+", file)
+	print("Yanked " .. file)
+end, { desc = "[Y]ank [F]ile" })
+
 map("n", "<leader>yl", function()
 	local file = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
 	local line = vim.fn.line(".")
@@ -193,6 +199,26 @@ map("v", "<leader>yr", function()
 	vim.fn.setreg("+", text)
 	print("Yanked " .. text)
 end, { desc = "[Y]ank [R]ange File:Lines" })
+
+map("v", "<leader>ys", function()
+	local file = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+	local start_line = vim.fn.line("v")
+	local end_line = vim.fn.line(".")
+
+	if start_line > end_line then
+		start_line, end_line = end_line, start_line
+	end
+
+	local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+	local snippet = table.concat(lines, "\n")
+
+	local text = string.format("File:%s:%d-%d\n%s", file, start_line, end_line, snippet)
+
+	vim.fn.setreg('"', text)
+	pcall(vim.fn.setreg, "+", text)
+
+	print("Yanked snippet from " .. file .. ":" .. start_line .. "-" .. end_line)
+end, { desc = "[Y]ank [S]nippet" })
 
 -- gitsigns
 local gs = require("gitsigns")
