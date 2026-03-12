@@ -88,13 +88,13 @@ return {
 		},
 	},
 
-	keys = {
-		{ "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", desc = "AI Chat" },
-		{ "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "AI Actions" },
-		{ "<leader>ai", "<cmd>CodeCompanion<cr>", desc = "AI Inline" },
-		{ "<leader>an", "<cmd>CodeCompanionChat<cr>", desc = "AI New Chat" },
-		{ "ga", "<cmd>CodeCompanionChat Add<cr>", mode = "v", desc = "Add to AI chat" },
-	},
+	--	keys = {
+	--		{ "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", desc = "AI Chat" },
+	--		{ "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "AI Actions" },
+	--		{ "<leader>ai", "<cmd>CodeCompanion<cr>", desc = "AI Inline" },
+	--		{ "<leader>an", "<cmd>CodeCompanionChat<cr>", desc = "AI New Chat" },
+	--		{ "ga", "<cmd>CodeCompanionChat Add<cr>", mode = "v", desc = "Add to AI chat" },
+	--	},
 
 	config = function(_, opts)
 		require("codecompanion").setup(opts)
