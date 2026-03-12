@@ -7,5 +7,5 @@
 !*.sh
 
 # Unignore configs folder and all its contents
-!configs/
-!configs/**
+!dotfiles/
+!dotfiles/**
