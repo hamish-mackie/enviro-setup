@@ -20,15 +20,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- Automatically open nvim-tree when Neovim launches, but switch back to the previous window
-vim.api.nvim_create_autocmd("VimEnter", {
-	callback = function()
-		vim.defer_fn(function()
-			local api = require("nvim-tree.api")
-			api.tree.open()
-			vim.cmd("wincmd p") -- Return focus to previous window
-		end, 50)
-	end,
-})
+-- vim.api.nvim_create_autocmd("VimEnter", {
+-- 	callback = function()
+-- 		vim.defer_fn(function()
+-- 			local api = require("nvim-tree.api")
+-- 			api.tree.open()
+-- 			vim.cmd("wincmd p") -- Return focus to previous window
+-- 		end, 50)
+-- 	end,
+-- } )
 
 -- auto reload
 -- 1. Tell Neovim to keep an eye on the mtime of every file you edit
